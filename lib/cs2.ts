@@ -2,7 +2,9 @@ import type {
   CS2PlayerStats,
   CS2RawStats,
   MapStat,
+  PlayerAchievement,
   SteamGameStat,
+  WeaponAccuracy,
   WeaponStat,
 } from "./steam-types"
 
@@ -84,6 +86,9 @@ export function parseCS2Stats(
       ? playtimeMinutes * 60 // convert minutes to seconds
       : statValue(s, "total_time_played")
 
+  const totalShotsFired = statValue(s, "total_shots_fired")
+  const totalShotsHit = statValue(s, "total_shots_hit")
+
   return {
     steamid,
     totalKills,
@@ -104,6 +109,13 @@ export function parseCS2Stats(
     totalKnifeKills: statValue(s, "total_kills_knife"),
     lastMatchKills: statValue(s, "last_match_kills"),
     lastMatchDeaths: statValue(s, "last_match_deaths"),
+    totalShotsFired,
+    totalShotsHit,
+    accuracy: totalShotsFired > 0
+      ? (totalShotsHit / totalShotsFired) * 100
+      : 0,
+    weaponAccuracy: getWeaponAccuracy(s),
+    achievements: getAchievements(raw),
     weapons: getWeaponStats(s),
     maps: getMapStats(s),
   }
@@ -128,6 +140,47 @@ function getWeaponStats(stats: SteamGameStat[]): WeaponStat[] {
     }
   }
   return weapons.sort((a, b) => b.kills - a.kills)
+}
+
+const AGGREGATE_SHOT_KEYS = new Set(["fired", "hit"])
+
+function getWeaponAccuracy(stats: SteamGameStat[]): WeaponAccuracy[] {
+  const accuracy: WeaponAccuracy[] = []
+  const shotMap = new Map<string, number>()
+  const hitMap = new Map<string, number>()
+
+  for (const stat of stats) {
+    const shotMatch = stat.name.match(/^total_shots_(.+)$/)
+    if (shotMatch && stat.value > 0 && !AGGREGATE_SHOT_KEYS.has(shotMatch[1])) {
+      shotMap.set(shotMatch[1], stat.value)
+    }
+    const hitMatch = stat.name.match(/^total_hits_(.+)$/)
+    if (hitMatch && stat.value > 0) {
+      hitMap.set(hitMatch[1], stat.value)
+    }
+  }
+
+  for (const [weapon, shots] of shotMap) {
+    const hits = hitMap.get(weapon) ?? 0
+    if (shots > 0) {
+      accuracy.push({
+        weapon: WEAPON_NAMES[weapon] ?? weapon,
+        shots,
+        hits,
+        accuracy: (hits / shots) * 100,
+      })
+    }
+  }
+
+  return accuracy.sort((a, b) => b.shots - a.shots)
+}
+
+function getAchievements(raw: CS2RawStats): PlayerAchievement[] {
+  if (!raw.achievements) return []
+  return raw.achievements.map((a) => ({
+    name: a.name,
+    achieved: a.achieved === 1,
+  }))
 }
 
 function getMapStats(stats: SteamGameStat[]): MapStat[] {

@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 import {
   BarChart3,
   Crosshair,
+  HelpCircle,
   LayoutDashboard,
   LogOut,
   Moon,
@@ -27,6 +28,7 @@ interface NavBarProps {
 const navLinks = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/stats", label: "CS2 Stats", icon: BarChart3 },
+  { href: "/quiz", label: "Quiz", icon: HelpCircle },
 ]
 
 export function NavBar({ user }: NavBarProps) {
