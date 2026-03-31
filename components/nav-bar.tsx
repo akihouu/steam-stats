@@ -41,7 +41,7 @@ export function NavBar({ user }: NavBarProps) {
           className="flex items-center gap-2 font-semibold"
         >
           <Crosshair className="text-primary size-5" />
-          <span className="hidden sm:inline">Steam Stats</span>
+          <span className="hidden sm:inline">CS2 Stats</span>
         </Link>
 
         <Separator orientation="vertical" className="!h-6" />
