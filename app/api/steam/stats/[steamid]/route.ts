@@ -1,6 +1,7 @@
 import { parseCS2Stats } from "@/lib/cs2"
 import { getSession } from "@/lib/session"
-import { getCS2Stats } from "@/lib/steam"
+import { getCS2Stats, getOwnedGames } from "@/lib/steam"
+import { CS2_APP_ID } from "@/lib/steam-types"
 import { NextResponse, type NextRequest } from "next/server"
 
 export async function GET(
@@ -14,7 +15,10 @@ export async function GET(
 
   const { steamid } = await params
 
-  const raw = await getCS2Stats(steamid)
+  const [raw, ownedGames] = await Promise.all([
+    getCS2Stats(steamid),
+    getOwnedGames(steamid),
+  ])
   if (!raw) {
     return NextResponse.json(
       { error: "Stats unavailable (profile may be private)" },
@@ -22,6 +26,7 @@ export async function GET(
     )
   }
 
-  const stats = parseCS2Stats(raw, steamid)
+  const cs2Game = ownedGames?.find((g) => g.appid === CS2_APP_ID)
+  const stats = parseCS2Stats(raw, steamid, cs2Game?.playtime_forever)
   return NextResponse.json({ stats })
 }

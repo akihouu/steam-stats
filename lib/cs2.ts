@@ -65,7 +65,8 @@ const MAP_DISPLAY_NAMES: Record<string, string> = {
 
 export function parseCS2Stats(
   raw: CS2RawStats,
-  steamid: string
+  steamid: string,
+  playtimeMinutes?: number
 ): CS2PlayerStats {
   const s = raw.stats
 
@@ -75,12 +76,20 @@ export function parseCS2Stats(
   const totalRounds = statValue(s, "total_rounds_played")
   const totalHeadshots = statValue(s, "total_kills_headshot")
 
+  // Use playtime_forever from GetOwnedGames (minutes) when available,
+  // as total_time_played from stats API is cumulative in-round seconds
+  // and doesn't reflect real-world playtime
+  const totalTimePlayed =
+    playtimeMinutes !== undefined
+      ? playtimeMinutes * 60 // convert minutes to seconds
+      : statValue(s, "total_time_played")
+
   return {
     steamid,
     totalKills,
     totalDeaths,
     totalWins,
-    totalTimePlayed: statValue(s, "total_time_played"),
+    totalTimePlayed,
     kdRatio: totalDeaths > 0 ? totalKills / totalDeaths : totalKills,
     winRate: totalRounds > 0 ? (totalWins / totalRounds) * 100 : 0,
     headshotPercentage:

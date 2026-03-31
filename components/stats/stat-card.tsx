@@ -4,9 +4,9 @@ import { Card, CardContent } from "@/components/ui/card"
 import { scaleIn } from "@/lib/motion"
 import { cn } from "@/lib/utils"
 import type { LucideIcon } from "lucide-react"
-import { useMotionValue, useSpring, useTransform } from "motion/react"
+import { useMotionValue, useSpring } from "motion/react"
 import { motion as m } from "motion/react"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 interface StatCardProps {
   label: string
@@ -25,21 +25,24 @@ export function StatCard({
   highlight,
   subtitle,
 }: StatCardProps) {
+  const [display, setDisplay] = useState(format(0))
   const motionValue = useMotionValue(0)
   const spring = useSpring(motionValue, { stiffness: 50, damping: 20 })
-  const display = useTransform(spring, (v) => format(Math.round(v)))
 
   useEffect(() => {
     motionValue.set(value)
   }, [motionValue, value])
 
+  useEffect(() => {
+    const unsubscribe = spring.on("change", (v) => {
+      setDisplay(format(Math.round(v)))
+    })
+    return unsubscribe
+  }, [spring, format])
+
   return (
     <m.div variants={scaleIn} initial="initial" animate="animate">
-      <Card
-        className={cn(
-          highlight && "border-primary/50 bg-primary/5"
-        )}
-      >
+      <Card className={cn(highlight && "border-primary/50 bg-primary/5")}>
         <CardContent className="flex items-start gap-3 p-4">
           <div
             className={cn(
@@ -52,14 +55,10 @@ export function StatCard({
             <Icon className="size-4" />
           </div>
           <div className="flex flex-col">
-            <m.span className="text-2xl font-bold tabular-nums">
-              {display}
-            </m.span>
+            <span className="text-2xl font-bold tabular-nums">{display}</span>
             <span className="text-muted-foreground text-sm">{label}</span>
             {subtitle && (
-              <span className="text-muted-foreground text-xs">
-                {subtitle}
-              </span>
+              <span className="text-muted-foreground text-xs">{subtitle}</span>
             )}
           </div>
         </CardContent>
