@@ -28,6 +28,24 @@ export default async function DashboardPage() {
     friendProfiles = await getPlayerSummaries(friendIds)
   }
 
+  // Group friends by activity status
+  const groups = friendProfiles
+    ? {
+        playingCS2: friendProfiles.filter(
+          (f) => f.gameid === "730"
+        ),
+        inOtherGame: friendProfiles.filter(
+          (f) => f.gameid && f.gameid !== "730"
+        ),
+        online: friendProfiles.filter(
+          (f) => !f.gameid && f.personastate > 0
+        ),
+        offline: friendProfiles.filter(
+          (f) => !f.gameid && f.personastate === 0
+        ),
+      }
+    : null
+
   return (
     <div className="flex flex-col gap-6">
       <ProfileCard player={player} cs2Playtime={cs2?.playtime_forever} />
@@ -43,7 +61,7 @@ export default async function DashboardPage() {
           </p>
         </div>
       ) : friendProfiles && friendProfiles.length > 0 ? (
-        <FriendList friends={friendProfiles} />
+        <FriendList friends={friendProfiles} groups={groups!} />
       ) : (
         <div className="flex flex-col items-center gap-2 rounded-lg border border-dashed py-12">
           <AlertCircle className="text-muted-foreground size-8" />

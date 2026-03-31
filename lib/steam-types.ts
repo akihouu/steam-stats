@@ -44,6 +44,18 @@ export interface CS2RawStats {
   achievements?: SteamPlayerAchievement[]
 }
 
+export interface WeaponAccuracy {
+  weapon: string
+  shots: number
+  hits: number
+  accuracy: number
+}
+
+export interface PlayerAchievement {
+  name: string
+  achieved: boolean
+}
+
 export interface CS2PlayerStats {
   steamid: string
   totalKills: number
@@ -63,6 +75,11 @@ export interface CS2PlayerStats {
   totalKnifeKills: number
   lastMatchKills: number
   lastMatchDeaths: number
+  totalShotsFired: number
+  totalShotsHit: number
+  accuracy: number
+  weaponAccuracy: WeaponAccuracy[]
+  achievements: PlayerAchievement[]
   weapons: WeaponStat[]
   maps: MapStat[]
 }
