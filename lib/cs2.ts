@@ -142,6 +142,8 @@ function getWeaponStats(stats: SteamGameStat[]): WeaponStat[] {
   return weapons.sort((a, b) => b.kills - a.kills)
 }
 
+const AGGREGATE_SHOT_KEYS = new Set(["fired", "hit"])
+
 function getWeaponAccuracy(stats: SteamGameStat[]): WeaponAccuracy[] {
   const accuracy: WeaponAccuracy[] = []
   const shotMap = new Map<string, number>()
@@ -149,7 +151,7 @@ function getWeaponAccuracy(stats: SteamGameStat[]): WeaponAccuracy[] {
 
   for (const stat of stats) {
     const shotMatch = stat.name.match(/^total_shots_(.+)$/)
-    if (shotMatch && stat.value > 0) {
+    if (shotMatch && stat.value > 0 && !AGGREGATE_SHOT_KEYS.has(shotMatch[1])) {
       shotMap.set(shotMatch[1], stat.value)
     }
     const hitMatch = stat.name.match(/^total_hits_(.+)$/)

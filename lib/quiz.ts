@@ -130,19 +130,28 @@ export function generateQuizQuestions(
     )
   }
 
-  // Favorite weapon questions
+  // Favorite weapon questions — only if the answer is unambiguous
   const weaponUsers = pool.filter((p) => p.stats.weapons.length > 0)
   if (weaponUsers.length >= 2) {
-    const random = pickRandom(weaponUsers, 1)[0]
-    const favWeapon = random.stats.weapons[0]
-    questions.push(
-      makeQuestion(
-        `Whose favorite weapon is the ${favWeapon.weapon}?`,
-        `${formatNumber(favWeapon.kills)} kills with it`,
-        random,
-        pool
+    // Find a player whose top weapon is unique among the group
+    const shuffled = pickRandom(weaponUsers, weaponUsers.length)
+    const uniqueWeaponUser = shuffled.find((player) => {
+      const topWeapon = player.stats.weapons[0].weapon
+      return weaponUsers.filter(
+        (p) => p.stats.weapons[0]?.weapon === topWeapon
+      ).length === 1
+    })
+    if (uniqueWeaponUser) {
+      const favWeapon = uniqueWeaponUser.stats.weapons[0]
+      questions.push(
+        makeQuestion(
+          `Whose favorite weapon is the ${favWeapon.weapon}?`,
+          `${formatNumber(favWeapon.kills)} kills with it`,
+          uniqueWeaponUser,
+          pool
+        )
       )
-    )
+    }
   }
 
   // Most playtime

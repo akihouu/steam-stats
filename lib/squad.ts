@@ -141,7 +141,8 @@ export function buildDreamTeam(
       strengths.push(`#${killRank} in kills`)
     if (player.stats.kdRatio >= Math.max(...kd) * 0.9)
       strengths.push("Top K/D")
-    if (player.stats.headshotPercentage >= Math.max(...hs.filter(Boolean)) * 0.9)
+    const maxHS = hs.some(Boolean) ? Math.max(...hs.filter(Boolean)) : 0
+    if (maxHS > 0 && player.stats.headshotPercentage >= maxHS * 0.9)
       strengths.push("Sharp aim")
     if (player.stats.totalMvps >= Math.max(...mvps) * 0.9)
       strengths.push("MVP machine")
