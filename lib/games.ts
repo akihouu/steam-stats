@@ -50,5 +50,5 @@ export const GAME_CONFIGS: Record<GameId, GameConfig> = {
 export const GAME_IDS = Object.keys(GAME_CONFIGS) as GameId[]
 
 export function isValidGameId(id: string): id is GameId {
-  return id in GAME_CONFIGS
+  return Object.hasOwn(GAME_CONFIGS, id)
 }
