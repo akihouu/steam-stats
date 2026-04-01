@@ -7,7 +7,7 @@ import type {
   SteamFriend,
   SteamPlayer,
 } from "./steam-types"
-import { CS2_APP_ID } from "./steam-types"
+import { CS2_APP_ID, TF2_APP_ID } from "./steam-types"
 
 const STEAM_API = "https://api.steampowered.com"
 
@@ -61,17 +61,14 @@ export async function getFriendList(
 ): Promise<SteamFriend[] | null> {
   const data = await steamFetch<{
     friendslist: { friends: SteamFriend[] }
-  }>(
-    "/ISteamUser/GetFriendList/v1/",
-    { steamid, relationship: "friend" },
-    300
-  )
+  }>("/ISteamUser/GetFriendList/v1/", { steamid, relationship: "friend" }, 300)
 
   return data?.friendslist.friends ?? null
 }
 
-export async function getCS2Stats(
-  steamid: string
+export async function getGameStats(
+  steamid: string,
+  appid: number
 ): Promise<CS2RawStats | null> {
   const data = await steamFetch<{
     playerstats: {
@@ -80,7 +77,7 @@ export async function getCS2Stats(
     }
   }>(
     "/ISteamUserStats/GetUserStatsForGame/v2/",
-    { steamid, appid: CS2_APP_ID.toString() },
+    { steamid, appid: appid.toString() },
     600
   )
 
@@ -90,6 +87,18 @@ export async function getCS2Stats(
     stats: data.playerstats.stats,
     achievements: data.playerstats.achievements,
   }
+}
+
+export async function getCS2Stats(
+  steamid: string
+): Promise<CS2RawStats | null> {
+  return getGameStats(steamid, CS2_APP_ID)
+}
+
+export async function getTF2Stats(
+  steamid: string
+): Promise<CS2RawStats | null> {
+  return getGameStats(steamid, TF2_APP_ID)
 }
 
 export async function getOwnedGames(
@@ -115,11 +124,7 @@ export async function getRecentlyPlayedGames(
 ): Promise<OwnedGame[] | null> {
   const data = await steamFetch<{
     response: { total_count: number; games: OwnedGame[] }
-  }>(
-    "/IPlayerService/GetRecentlyPlayedGames/v1/",
-    { steamid },
-    300
-  )
+  }>("/IPlayerService/GetRecentlyPlayedGames/v1/", { steamid }, 300)
 
   return data?.response.games ?? null
 }

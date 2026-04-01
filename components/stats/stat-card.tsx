@@ -56,9 +56,9 @@ export function StatCard({
           </div>
           <div className="flex flex-col">
             <span className="text-2xl font-bold tabular-nums">{display}</span>
-            <span className="text-muted-foreground text-sm">{label}</span>
+            <span className="text-sm text-muted-foreground">{label}</span>
             {subtitle && (
-              <span className="text-muted-foreground text-xs">{subtitle}</span>
+              <span className="text-xs text-muted-foreground">{subtitle}</span>
             )}
           </div>
         </CardContent>

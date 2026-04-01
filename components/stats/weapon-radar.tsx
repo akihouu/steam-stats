@@ -14,26 +14,11 @@ interface WeaponRadarProps {
 const CATEGORIES = [
   {
     name: "Rifles",
-    weapons: [
-      "AK-47",
-      "M4A1-S / M4A4",
-      "FAMAS",
-      "Galil AR",
-      "AUG",
-      "SG 553",
-    ],
+    weapons: ["AK-47", "M4A1-S / M4A4", "FAMAS", "Galil AR", "AUG", "SG 553"],
   },
   {
     name: "SMGs",
-    weapons: [
-      "P90",
-      "MAC-10",
-      "MP7",
-      "MP9",
-      "UMP-45",
-      "PP-Bizon",
-      "MP5-SD",
-    ],
+    weapons: ["P90", "MAC-10", "MP7", "MP9", "UMP-45", "PP-Bizon", "MP5-SD"],
   },
   {
     name: "Pistols",
@@ -49,14 +34,7 @@ const CATEGORIES = [
   },
   {
     name: "Heavy",
-    weapons: [
-      "Nova",
-      "XM1014",
-      "Sawed-Off",
-      "MAG-7",
-      "Negev",
-      "M249",
-    ],
+    weapons: ["Nova", "XM1014", "Sawed-Off", "MAG-7", "Negev", "M249"],
   },
   {
     name: "Snipers",
@@ -123,8 +101,8 @@ export function WeaponRadar({
   )
 
   const friendWeapons =
-    friends.find((f) => f.profile.steamid === selectedFriend)?.stats
-      .weapons ?? []
+    friends.find((f) => f.profile.steamid === selectedFriend)?.stats.weapons ??
+    []
   const friendCatKills = CATEGORIES.map((c) =>
     getCategoryKills(friendWeapons, c.weapons)
   )
@@ -147,13 +125,10 @@ export function WeaponRadar({
             <select
               value={selectedFriend ?? ""}
               onChange={(e) => setSelectedFriend(e.target.value)}
-              className="bg-muted rounded-md px-2 py-1 text-xs"
+              className="rounded-md bg-muted px-2 py-1 text-xs"
             >
               {friends.map((f) => (
-                <option
-                  key={f.profile.steamid}
-                  value={f.profile.steamid}
-                >
+                <option key={f.profile.steamid} value={f.profile.steamid}>
                   vs {f.profile.personaname}
                 </option>
               ))}
@@ -162,10 +137,7 @@ export function WeaponRadar({
         </CardTitle>
       </CardHeader>
       <CardContent className="flex justify-center">
-        <svg
-          viewBox="0 0 300 300"
-          className="w-full max-w-[300px]"
-        >
+        <svg viewBox="0 0 300 300" className="w-full max-w-[300px]">
           {/* Grid lines */}
           {levels.map((level) => {
             const points = CATEGORIES.map((_, i) => {
@@ -190,12 +162,7 @@ export function WeaponRadar({
 
           {/* Axis lines */}
           {CATEGORIES.map((_, i) => {
-            const { x, y } = polarToCartesian(
-              cx,
-              cy,
-              maxR,
-              i * angleStep
-            )
+            const { x, y } = polarToCartesian(cx, cy, maxR, i * angleStep)
             return (
               <line
                 key={i}
@@ -235,12 +202,7 @@ export function WeaponRadar({
 
           {/* Labels */}
           {CATEGORIES.map((cat, i) => {
-            const { x, y } = polarToCartesian(
-              cx,
-              cy,
-              maxR + 18,
-              i * angleStep
-            )
+            const { x, y } = polarToCartesian(cx, cy, maxR + 18, i * angleStep)
             return (
               <text
                 key={cat.name}
@@ -257,12 +219,7 @@ export function WeaponRadar({
 
           {/* Data points - user */}
           {userNorm.map((v, i) => {
-            const { x, y } = polarToCartesian(
-              cx,
-              cy,
-              v * maxR,
-              i * angleStep
-            )
+            const { x, y } = polarToCartesian(cx, cy, v * maxR, i * angleStep)
             return (
               <circle
                 key={`user-${i}`}
@@ -277,17 +234,16 @@ export function WeaponRadar({
       </CardContent>
       <div className="flex justify-center gap-4 pb-4 text-xs">
         <div className="flex items-center gap-1.5">
-          <div className="bg-primary size-2.5 rounded-full" />
+          <div className="size-2.5 rounded-full bg-primary" />
           <span>{userName}</span>
         </div>
         {selectedFriend && (
           <div className="flex items-center gap-1.5">
-            <div className="bg-muted-foreground size-2.5 rounded-full" />
+            <div className="size-2.5 rounded-full bg-muted-foreground" />
             <span>
               {
-                friends.find(
-                  (f) => f.profile.steamid === selectedFriend
-                )?.profile.personaname
+                friends.find((f) => f.profile.steamid === selectedFriend)
+                  ?.profile.personaname
               }
             </span>
           </div>

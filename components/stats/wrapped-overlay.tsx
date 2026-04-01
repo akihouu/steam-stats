@@ -167,7 +167,7 @@ export function WrappedOverlay({
       {/* Close button */}
       <button
         onClick={onClose}
-        className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+        className="absolute top-4 right-4 z-10 rounded-full bg-white/10 p-2 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
       >
         <X className="size-5" />
       </button>
@@ -176,7 +176,7 @@ export function WrappedOverlay({
       {current > 0 && (
         <button
           onClick={prev}
-          className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-2 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+          className="absolute top-1/2 left-4 z-10 -translate-y-1/2 rounded-full bg-white/10 p-2 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
         >
           <ChevronLeft className="size-6" />
         </button>
@@ -184,7 +184,7 @@ export function WrappedOverlay({
       {current < slides.length - 1 && (
         <button
           onClick={next}
-          className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-2 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+          className="absolute top-1/2 right-4 z-10 -translate-y-1/2 rounded-full bg-white/10 p-2 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
         >
           <ChevronRight className="size-6" />
         </button>
@@ -213,9 +213,7 @@ export function WrappedOverlay({
             onClick={() => setCurrent(i)}
             className={cn(
               "size-2 rounded-full transition-all",
-              i === current
-                ? "w-6 bg-white"
-                : "bg-white/40 hover:bg-white/60"
+              i === current ? "w-6 bg-white" : "bg-white/40 hover:bg-white/60"
             )}
           />
         ))}

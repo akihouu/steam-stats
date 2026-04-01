@@ -33,8 +33,7 @@ export function Leaderboard({ players, currentSteamId }: LeaderboardProps) {
 
   const option = STAT_OPTIONS.find((o) => o.key === activeStat)!
   const sorted = [...players].sort(
-    (a, b) =>
-      (b.stats[activeStat] as number) - (a.stats[activeStat] as number)
+    (a, b) => (b.stats[activeStat] as number) - (a.stats[activeStat] as number)
   )
 
   return (
@@ -64,7 +63,7 @@ export function Leaderboard({ players, currentSteamId }: LeaderboardProps) {
               key={entry.profile.steamid}
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2",
-                isUser && "bg-primary/5 border-primary/20 border"
+                isUser && "border border-primary/20 bg-primary/5"
               )}
             >
               <span
@@ -79,11 +78,7 @@ export function Leaderboard({ players, currentSteamId }: LeaderboardProps) {
                         : "text-muted-foreground"
                 )}
               >
-                {idx === 0 ? (
-                  <Trophy className="size-3.5" />
-                ) : (
-                  idx + 1
-                )}
+                {idx === 0 ? <Trophy className="size-3.5" /> : idx + 1}
               </span>
               <Avatar className="size-7">
                 <AvatarImage
@@ -102,7 +97,7 @@ export function Leaderboard({ players, currentSteamId }: LeaderboardProps) {
               >
                 {entry.profile.personaname}
                 {isUser && (
-                  <span className="text-muted-foreground ml-1 text-xs font-normal">
+                  <span className="ml-1 text-xs font-normal text-muted-foreground">
                     (you)
                   </span>
                 )}

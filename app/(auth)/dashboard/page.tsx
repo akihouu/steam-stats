@@ -31,15 +31,11 @@ export default async function DashboardPage() {
   // Group friends by activity status
   const groups = friendProfiles
     ? {
-        playingCS2: friendProfiles.filter(
-          (f) => f.gameid === "730"
-        ),
+        playingCS2: friendProfiles.filter((f) => f.gameid === "730"),
         inOtherGame: friendProfiles.filter(
           (f) => f.gameid && f.gameid !== "730"
         ),
-        online: friendProfiles.filter(
-          (f) => !f.gameid && f.personastate > 0
-        ),
+        online: friendProfiles.filter((f) => !f.gameid && f.personastate > 0),
         offline: friendProfiles.filter(
           (f) => !f.gameid && f.personastate === 0
         ),
@@ -52,11 +48,11 @@ export default async function DashboardPage() {
 
       {friends === null ? (
         <div className="flex flex-col items-center gap-2 rounded-lg border border-dashed py-12">
-          <Lock className="text-muted-foreground size-8" />
-          <p className="text-muted-foreground text-sm">
+          <Lock className="size-8 text-muted-foreground" />
+          <p className="text-sm text-muted-foreground">
             Your friend list is set to private.
           </p>
-          <p className="text-muted-foreground text-xs">
+          <p className="text-xs text-muted-foreground">
             Change your Steam privacy settings to see friends here.
           </p>
         </div>
@@ -64,8 +60,8 @@ export default async function DashboardPage() {
         <FriendList friends={friendProfiles} groups={groups!} />
       ) : (
         <div className="flex flex-col items-center gap-2 rounded-lg border border-dashed py-12">
-          <AlertCircle className="text-muted-foreground size-8" />
-          <p className="text-muted-foreground text-sm">No friends found.</p>
+          <AlertCircle className="size-8 text-muted-foreground" />
+          <p className="text-sm text-muted-foreground">No friends found.</p>
         </div>
       )}
     </div>

@@ -29,12 +29,7 @@ function ProgressRing({
   const config = TIER_CONFIG[tier]
 
   return (
-    <svg
-      width="52"
-      height="52"
-      viewBox="0 0 52 52"
-      className="-rotate-90"
-    >
+    <svg width="52" height="52" viewBox="0 0 52 52" className="-rotate-90">
       <circle
         cx="26"
         cy="26"
@@ -77,10 +72,7 @@ function MasteryCard({ data }: { data: WeaponMasteryData }) {
       )}
     >
       <div className="relative flex items-center justify-center">
-        <ProgressRing
-          percentage={data.progress.percentage}
-          tier={data.tier}
-        />
+        <ProgressRing percentage={data.progress.percentage} tier={data.tier} />
         <span
           className={cn(
             "absolute text-xs font-bold tabular-nums",
@@ -92,16 +84,15 @@ function MasteryCard({ data }: { data: WeaponMasteryData }) {
       </div>
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-medium">{data.weapon}</p>
-        <p className="text-muted-foreground text-xs tabular-nums">
+        <p className="text-xs text-muted-foreground tabular-nums">
           {data.kills.toLocaleString()} kills
         </p>
         <p className={cn("text-xs font-medium", config.color)}>
           {config.label}
           {!isMaxTier && data.tier !== "none" && (
-            <span className="text-muted-foreground font-normal">
+            <span className="font-normal text-muted-foreground">
               {" "}
-              · {(data.progress.target - data.kills).toLocaleString()}{" "}
-              to next
+              · {(data.progress.target - data.kills).toLocaleString()} to next
             </span>
           )}
         </p>
@@ -115,9 +106,7 @@ export function WeaponMastery({ weapons }: WeaponMasteryProps) {
   const unlocked = masteryData.filter((d) => d.tier !== "none")
   const locked = masteryData.filter((d) => d.tier === "none")
 
-  const diamondCount = masteryData.filter(
-    (d) => d.tier === "diamond"
-  ).length
+  const diamondCount = masteryData.filter((d) => d.tier === "diamond").length
   const goldCount = masteryData.filter((d) => d.tier === "gold").length
 
   return (
@@ -125,7 +114,7 @@ export function WeaponMastery({ weapons }: WeaponMasteryProps) {
       <CardHeader>
         <CardTitle className="flex items-center justify-between text-base">
           <span>Weapon Mastery</span>
-          <span className="text-muted-foreground text-xs font-normal">
+          <span className="text-xs font-normal text-muted-foreground">
             {unlocked.length}/{masteryData.length} unlocked
             {diamondCount > 0 && ` · ${diamondCount} ✦`}
             {goldCount > 0 && ` · ${goldCount} gold`}

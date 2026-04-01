@@ -23,17 +23,14 @@ export function ProfileCard({ player, cs2Playtime }: ProfileCardProps) {
         <CardContent className="flex items-center gap-4 p-5">
           <div className="relative">
             <Avatar className="size-16">
-              <AvatarImage
-                src={player.avatarfull}
-                alt={player.personaname}
-              />
+              <AvatarImage src={player.avatarfull} alt={player.personaname} />
               <AvatarFallback className="text-lg">
                 {player.personaname.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
             <div
               className={cn(
-                "absolute bottom-0 right-0 size-4 rounded-full border-2 border-white dark:border-zinc-900",
+                "absolute right-0 bottom-0 size-4 rounded-full border-2 border-white dark:border-zinc-900",
                 isOnline ? "bg-emerald-500" : "bg-zinc-400"
               )}
             />
@@ -45,13 +42,13 @@ export function ProfileCard({ player, cs2Playtime }: ProfileCardProps) {
                 {state.replace("-", " ")}
               </Badge>
               {player.gameextrainfo && (
-                <span className="text-muted-foreground text-sm">
+                <span className="text-sm text-muted-foreground">
                   Playing {player.gameextrainfo}
                 </span>
               )}
             </div>
             {cs2Playtime !== undefined && (
-              <p className="text-muted-foreground text-sm">
+              <p className="text-sm text-muted-foreground">
                 {Math.round(cs2Playtime / 60)} hours in CS2
               </p>
             )}

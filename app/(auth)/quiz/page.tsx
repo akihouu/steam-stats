@@ -33,9 +33,9 @@ export default async function QuizPage() {
   if (!userStats) {
     return (
       <div className="flex flex-col items-center gap-4 py-20">
-        <AlertCircle className="text-muted-foreground size-10" />
+        <AlertCircle className="size-10 text-muted-foreground" />
         <h2 className="text-lg font-semibold">No CS2 Stats Found</h2>
-        <p className="text-muted-foreground text-sm">
+        <p className="text-sm text-muted-foreground">
           You need CS2 stats to play the quiz.
         </p>
       </div>
@@ -45,7 +45,7 @@ export default async function QuizPage() {
   // Fetch friend stats
   const friendList = await getFriendList(session.steamid)
   const allPlayers: {
-    profile: (typeof userProfile)
+    profile: typeof userProfile
     stats: NonNullable<typeof userStats>
   }[] = [{ profile: userProfile, stats: userStats }]
 
@@ -58,30 +58,20 @@ export default async function QuizPage() {
     ])
 
     for (let i = 0; i < sampleIds.length; i++) {
-      const profile = profiles.find(
-        (p) => p.steamid === sampleIds[i]
-      )
+      const profile = profiles.find((p) => p.steamid === sampleIds[i])
       const raw = rawStats[i]
       if (!profile || !raw) continue
-      const friendCs2 = ownedGames[i]?.find(
-        (g) => g.appid === CS2_APP_ID
-      )
+      const friendCs2 = ownedGames[i]?.find((g) => g.appid === CS2_APP_ID)
       allPlayers.push({
         profile,
-        stats: parseCS2Stats(
-          raw,
-          sampleIds[i],
-          friendCs2?.playtime_forever
-        ),
+        stats: parseCS2Stats(raw, sampleIds[i], friendCs2?.playtime_forever),
       })
     }
   }
 
   return (
     <div className="py-4">
-      <h1 className="mb-6 text-center text-2xl font-bold">
-        Guess the Stats
-      </h1>
+      <h1 className="mb-6 text-center text-2xl font-bold">Guess the Stats</h1>
       <QuizGame players={allPlayers} />
     </div>
   )

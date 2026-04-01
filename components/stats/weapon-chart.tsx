@@ -23,16 +23,20 @@ export function WeaponChart({ weapons, maxItems = 10 }: WeaponChartProps) {
       {top.map((w) => {
         const pct = (w.kills / maxKills) * 100
         return (
-          <m.div key={w.weapon} variants={fadeIn} className="flex flex-col gap-1">
+          <m.div
+            key={w.weapon}
+            variants={fadeIn}
+            className="flex flex-col gap-1"
+          >
             <div className="flex justify-between text-sm">
               <span className="font-medium">{w.weapon}</span>
               <span className="text-muted-foreground tabular-nums">
                 {w.kills.toLocaleString()}
               </span>
             </div>
-            <div className="bg-muted h-2 overflow-hidden rounded-full">
+            <div className="h-2 overflow-hidden rounded-full bg-muted">
               <m.div
-                className="bg-primary h-full rounded-full"
+                className="h-full rounded-full bg-primary"
                 initial={{ width: 0 }}
                 animate={{ width: `${pct}%` }}
                 transition={{ duration: 0.6, ease: "easeOut" }}

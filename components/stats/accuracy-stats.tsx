@@ -27,7 +27,12 @@ function AccuracyGauge({ value }: { value: number }) {
 
   return (
     <div className="relative flex items-center justify-center">
-      <svg width="128" height="128" viewBox="0 0 128 128" className="-rotate-90">
+      <svg
+        width="128"
+        height="128"
+        viewBox="0 0 128 128"
+        className="-rotate-90"
+      >
         <circle
           cx="64"
           cy="64"
@@ -53,7 +58,7 @@ function AccuracyGauge({ value }: { value: number }) {
         <span className={cn("text-2xl font-bold tabular-nums", color)}>
           {value.toFixed(1)}%
         </span>
-        <span className="text-muted-foreground text-xs">Accuracy</span>
+        <span className="text-xs text-muted-foreground">Accuracy</span>
       </div>
     </div>
   )
@@ -93,7 +98,7 @@ function HeadshotDonut({ value }: { value: number }) {
         <span className="text-lg font-bold tabular-nums">
           {value.toFixed(1)}%
         </span>
-        <span className="text-muted-foreground text-[10px]">HS Rate</span>
+        <span className="text-[10px] text-muted-foreground">HS Rate</span>
       </div>
     </div>
   )
@@ -121,13 +126,13 @@ export function AccuracyStats({
               <p className="font-semibold tabular-nums">
                 {totalShotsFired.toLocaleString()}
               </p>
-              <p className="text-muted-foreground text-xs">Shots Fired</p>
+              <p className="text-xs text-muted-foreground">Shots Fired</p>
             </div>
             <div>
               <p className="font-semibold tabular-nums">
                 {totalShotsHit.toLocaleString()}
               </p>
-              <p className="text-muted-foreground text-xs">Shots Hit</p>
+              <p className="text-xs text-muted-foreground">Shots Hit</p>
             </div>
             <div>
               <HeadshotDonut value={headshotPercentage} />
@@ -156,7 +161,7 @@ export function AccuracyStats({
                     {w.accuracy.toFixed(1)}%
                   </span>
                 </div>
-                <div className="bg-muted h-2 overflow-hidden rounded-full">
+                <div className="h-2 overflow-hidden rounded-full bg-muted">
                   <m.div
                     className={cn("h-full rounded-full", color)}
                     initial={{ width: 0 }}
@@ -168,7 +173,7 @@ export function AccuracyStats({
             )
           })}
           {topWeapons.length === 0 && (
-            <p className="text-muted-foreground py-4 text-center text-sm">
+            <p className="py-4 text-center text-sm text-muted-foreground">
               No weapon accuracy data available
             </p>
           )}

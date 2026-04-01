@@ -2,10 +2,7 @@
 
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import {
-  type AchievementWithRarity,
-  RARITY_CONFIG,
-} from "@/lib/achievements"
+import { type AchievementWithRarity, RARITY_CONFIG } from "@/lib/achievements"
 import { cn } from "@/lib/utils"
 import { staggerContainer, fadeIn } from "@/lib/motion"
 import { Check, Lock } from "lucide-react"
@@ -30,9 +27,7 @@ export function Achievements({ achievements }: AchievementsProps) {
     items: achieved.filter((a) => a.rarity === rarity),
   })).filter((g) => g.items.length > 0)
 
-  const displayedUnachieved = showAll
-    ? unachieved
-    : unachieved.slice(0, 6)
+  const displayedUnachieved = showAll ? unachieved : unachieved.slice(0, 6)
 
   return (
     <Card>
@@ -40,7 +35,7 @@ export function Achievements({ achievements }: AchievementsProps) {
         <CardTitle className="flex items-center justify-between text-base">
           <span>
             Achievements{" "}
-            <span className="text-muted-foreground font-normal">
+            <span className="font-normal text-muted-foreground">
               ({achieved.length}/{achievements.length})
             </span>
           </span>
@@ -52,15 +47,11 @@ export function Achievements({ achievements }: AchievementsProps) {
             <div className="mb-2 flex items-center gap-2">
               <Badge
                 variant="secondary"
-                className={cn(
-                  "text-xs",
-                  group.config.bg,
-                  group.config.color
-                )}
+                className={cn("text-xs", group.config.bg, group.config.color)}
               >
                 {group.config.label}
               </Badge>
-              <span className="text-muted-foreground text-xs">
+              <span className="text-xs text-muted-foreground">
                 {group.items.length} unlocked
               </span>
             </div>
@@ -86,9 +77,8 @@ export function Achievements({ achievements }: AchievementsProps) {
                     <p className="truncate text-sm font-medium">
                       {achievement.displayName}
                     </p>
-                    <p className="text-muted-foreground text-xs">
-                      {Math.round(achievement.friendPercentage)}% of
-                      group
+                    <p className="text-xs text-muted-foreground">
+                      {Math.round(achievement.friendPercentage)}% of group
                     </p>
                   </div>
                 </m.div>
@@ -100,7 +90,7 @@ export function Achievements({ achievements }: AchievementsProps) {
         {unachieved.length > 0 && (
           <div>
             <div className="mb-2 flex items-center gap-2">
-              <span className="text-muted-foreground text-xs font-medium">
+              <span className="text-xs font-medium text-muted-foreground">
                 Locked ({unachieved.length})
               </span>
             </div>
@@ -110,8 +100,8 @@ export function Achievements({ achievements }: AchievementsProps) {
                   key={achievement.name}
                   className="flex items-center gap-2 rounded-lg border border-dashed px-3 py-2 opacity-50"
                 >
-                  <Lock className="text-muted-foreground size-4 shrink-0" />
-                  <p className="text-muted-foreground truncate text-sm">
+                  <Lock className="size-4 shrink-0 text-muted-foreground" />
+                  <p className="truncate text-sm text-muted-foreground">
                     {achievement.displayName}
                   </p>
                 </div>
@@ -120,7 +110,7 @@ export function Achievements({ achievements }: AchievementsProps) {
             {unachieved.length > 6 && (
               <button
                 onClick={() => setShowAll(!showAll)}
-                className="text-muted-foreground hover:text-foreground mt-2 text-xs transition-colors"
+                className="mt-2 text-xs text-muted-foreground transition-colors hover:text-foreground"
               >
                 {showAll
                   ? "Show less"
@@ -131,7 +121,7 @@ export function Achievements({ achievements }: AchievementsProps) {
         )}
 
         {achievements.length === 0 && (
-          <p className="text-muted-foreground py-4 text-center text-sm">
+          <p className="py-4 text-center text-sm text-muted-foreground">
             No achievement data available
           </p>
         )}

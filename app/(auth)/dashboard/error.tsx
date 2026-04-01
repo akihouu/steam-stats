@@ -11,9 +11,9 @@ export default function DashboardError({
 }) {
   return (
     <div className="flex flex-col items-center gap-4 py-20">
-      <AlertCircle className="text-destructive size-10" />
+      <AlertCircle className="size-10 text-destructive" />
       <h2 className="text-lg font-semibold">Something went wrong</h2>
-      <p className="text-muted-foreground max-w-sm text-center text-sm">
+      <p className="max-w-sm text-center text-sm text-muted-foreground">
         Failed to load your dashboard. The Steam API might be temporarily
         unavailable.
       </p>

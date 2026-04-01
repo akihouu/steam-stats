@@ -36,13 +36,13 @@ export function NavBar({ user }: NavBarProps) {
   const { theme, setTheme } = useTheme()
 
   return (
-    <header className="bg-card sticky top-0 z-50 border-b">
+    <header className="sticky top-0 z-50 border-b bg-card">
       <div className="mx-auto flex h-14 max-w-6xl items-center gap-4 px-4">
         <Link
           href="/dashboard"
           className="flex items-center gap-2 font-semibold"
         >
-          <Crosshair className="text-primary size-5" />
+          <Crosshair className="size-5 text-primary" />
           <span className="hidden sm:inline">CS2 Stats</span>
         </Link>
 

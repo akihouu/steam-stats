@@ -38,15 +38,15 @@ export default function LandingPage() {
         animate="animate"
       >
         <m.div variants={fadeIn} className="flex flex-col items-center gap-3">
-          <div className="bg-primary/10 text-primary rounded-full p-3">
+          <div className="rounded-full bg-primary/10 p-3 text-primary">
             <Crosshair className="size-8" />
           </div>
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
             Steam Stats
           </h1>
-          <p className="text-muted-foreground max-w-md text-lg">
-            Log in with Steam and discover fun stats about you and your
-            friends in Counter-Strike 2.
+          <p className="max-w-md text-lg text-muted-foreground">
+            Log in with Steam and discover fun stats about you and your friends
+            in Counter-Strike 2.
           </p>
         </m.div>
 
@@ -66,18 +66,18 @@ export default function LandingPage() {
           {features.map((feature) => (
             <div
               key={feature.title}
-              className="bg-card rounded-lg border p-4 text-left"
+              className="rounded-lg border bg-card p-4 text-left"
             >
-              <feature.icon className="text-muted-foreground mb-2 size-5" />
+              <feature.icon className="mb-2 size-5 text-muted-foreground" />
               <p className="text-sm font-medium">{feature.title}</p>
-              <p className="text-muted-foreground text-xs">
+              <p className="text-xs text-muted-foreground">
                 {feature.description}
               </p>
             </div>
           ))}
         </m.div>
 
-        <m.p variants={fadeIn} className="text-muted-foreground text-xs">
+        <m.p variants={fadeIn} className="text-xs text-muted-foreground">
           Your Steam data is only used during your session. Nothing is stored.
         </m.p>
       </m.div>

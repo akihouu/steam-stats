@@ -56,9 +56,7 @@ function normalize(values: number[]): number[] {
 }
 
 function getAwpKillRatio(stats: CS2PlayerStats): number {
-  const awp = stats.weapons.find(
-    (w) => w.weapon === "AWP"
-  )
+  const awp = stats.weapons.find((w) => w.weapon === "AWP")
   if (!awp || stats.totalKills === 0) return 0
   return awp.kills / stats.totalKills
 }
@@ -94,12 +92,8 @@ export function buildDreamTeam(
 
   // Score each player for each role
   const roleScores: Record<string, number[]> = {
-    entry: players.map(
-      (_, i) => nKills[i] * 0.5 + nKD[i] * 0.3 + nHS[i] * 0.2
-    ),
-    awper: players.map(
-      (_, i) => nAwp[i] * 0.6 + nKD[i] * 0.2 + nHS[i] * 0.2
-    ),
+    entry: players.map((_, i) => nKills[i] * 0.5 + nKD[i] * 0.3 + nHS[i] * 0.2),
+    awper: players.map((_, i) => nAwp[i] * 0.6 + nKD[i] * 0.2 + nHS[i] * 0.2),
     support: players.map(
       (_, i) => nDonated[i] * 0.4 + nBombs[i] * 0.4 + nWinRate[i] * 0.2
     ),
@@ -116,8 +110,7 @@ export function buildDreamTeam(
   const members: SquadMember[] = []
 
   // Create (role, player, score) tuples, sort by score desc
-  const candidates: { roleId: string; playerIdx: number; score: number }[] =
-    []
+  const candidates: { roleId: string; playerIdx: number; score: number }[] = []
   for (const role of ROLES) {
     const scores = roleScores[role.id]
     for (let i = 0; i < players.length; i++) {
@@ -134,20 +127,15 @@ export function buildDreamTeam(
 
     const strengths: string[] = []
     const killRank =
-      [...kills]
-        .sort((a, b) => b - a)
-        .indexOf(player.stats.totalKills) + 1
-    if (killRank <= 3)
-      strengths.push(`#${killRank} in kills`)
-    if (player.stats.kdRatio >= Math.max(...kd) * 0.9)
-      strengths.push("Top K/D")
+      [...kills].sort((a, b) => b - a).indexOf(player.stats.totalKills) + 1
+    if (killRank <= 3) strengths.push(`#${killRank} in kills`)
+    if (player.stats.kdRatio >= Math.max(...kd) * 0.9) strengths.push("Top K/D")
     const maxHS = hs.some(Boolean) ? Math.max(...hs.filter(Boolean)) : 0
     if (maxHS > 0 && player.stats.headshotPercentage >= maxHS * 0.9)
       strengths.push("Sharp aim")
     if (player.stats.totalMvps >= Math.max(...mvps) * 0.9)
       strengths.push("MVP machine")
-    if (getAwpKillRatio(player.stats) >= 0.15)
-      strengths.push("AWP specialist")
+    if (getAwpKillRatio(player.stats) >= 0.15) strengths.push("AWP specialist")
 
     members.push({
       profile: player.profile,
