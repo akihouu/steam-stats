@@ -111,9 +111,7 @@ export function parseCS2Stats(
     lastMatchDeaths: statValue(s, "last_match_deaths"),
     totalShotsFired,
     totalShotsHit,
-    accuracy: totalShotsFired > 0
-      ? (totalShotsHit / totalShotsFired) * 100
-      : 0,
+    accuracy: totalShotsFired > 0 ? (totalShotsHit / totalShotsFired) * 100 : 0,
     weaponAccuracy: getWeaponAccuracy(s),
     achievements: getAchievements(raw),
     weapons: getWeaponStats(s),
@@ -246,9 +244,7 @@ export function generateFunFacts(
   }
 
   // Most kills total
-  const mostKills = [...allStats].sort(
-    (a, b) => b.totalKills - a.totalKills
-  )
+  const mostKills = [...allStats].sort((a, b) => b.totalKills - a.totalKills)
   if (mostKills[0].steamid === userStats.steamid) {
     facts.push({
       emoji: "🔫",
@@ -295,7 +291,7 @@ export function generateFunFacts(
   if (userStats.totalMvps > 0) {
     facts.push({
       emoji: "⭐",
-      text: `${userName} has earned ${formatNumber(userStats.totalMvps)} MVP stars — that's roughly ${Math.round(userStats.totalMvps / Math.max(1, userStats.totalWins) * 100)}% of wins`,
+      text: `${userName} has earned ${formatNumber(userStats.totalMvps)} MVP stars — that's roughly ${Math.round((userStats.totalMvps / Math.max(1, userStats.totalWins)) * 100)}% of wins`,
     })
   }
 

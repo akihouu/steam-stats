@@ -6,14 +6,7 @@ import { staggerContainer, fadeIn } from "@/lib/motion"
 import { buildDreamTeam } from "@/lib/squad"
 import type { CS2PlayerStats, SteamPlayer } from "@/lib/steam-types"
 import { cn } from "@/lib/utils"
-import {
-  Crown,
-  Crosshair,
-  Eye,
-  Shield,
-  Swords,
-  Users,
-} from "lucide-react"
+import { Crown, Crosshair, Eye, Shield, Swords, Users } from "lucide-react"
 import { motion as m } from "motion/react"
 import type { LucideIcon } from "lucide-react"
 
@@ -44,10 +37,7 @@ export function SquadBuilder({
   userStats,
   friendData,
 }: SquadBuilderProps) {
-  const allPlayers = [
-    { profile: userProfile, stats: userStats },
-    ...friendData,
-  ]
+  const allPlayers = [{ profile: userProfile, stats: userStats }, ...friendData]
   const { members, synergyScore } = buildDreamTeam(allPlayers)
 
   if (members.length === 0) return null
@@ -60,7 +50,7 @@ export function SquadBuilder({
             <Users className="size-4" />
             Dream Team
           </span>
-          <span className="text-primary text-sm font-semibold tabular-nums">
+          <span className="text-sm font-semibold text-primary tabular-nums">
             {synergyScore}% synergy
           </span>
         </CardTitle>
@@ -73,8 +63,7 @@ export function SquadBuilder({
           animate="animate"
         >
           {members.map((member) => {
-            const Icon =
-              ROLE_ICONS[member.role.icon] ?? Swords
+            const Icon = ROLE_ICONS[member.role.icon] ?? Swords
             const colorClass =
               ROLE_COLORS[member.role.id] ?? "text-primary bg-primary/10"
             const [textColor, bgColor] = colorClass.split(" ")
@@ -99,25 +88,18 @@ export function SquadBuilder({
                     alt={member.profile.personaname}
                   />
                   <AvatarFallback>
-                    {member.profile.personaname
-                      .charAt(0)
-                      .toUpperCase()}
+                    {member.profile.personaname.charAt(0).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
                 <div>
                   <p className="max-w-[120px] truncate text-sm font-medium">
                     {member.profile.personaname}
                   </p>
-                  <p
-                    className={cn(
-                      "text-xs font-semibold",
-                      textColor
-                    )}
-                  >
+                  <p className={cn("text-xs font-semibold", textColor)}>
                     {member.role.name}
                   </p>
                 </div>
-                <div className="bg-muted h-1.5 w-full overflow-hidden rounded-full">
+                <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
                   <m.div
                     className={cn("h-full rounded-full bg-current", textColor)}
                     initial={{ width: 0 }}
@@ -127,7 +109,7 @@ export function SquadBuilder({
                     transition={{ duration: 0.6 }}
                   />
                 </div>
-                <p className="text-muted-foreground text-xs tabular-nums">
+                <p className="text-xs text-muted-foreground tabular-nums">
                   {member.roleScore}% fit
                 </p>
                 {member.strengths.length > 0 && (
@@ -135,7 +117,7 @@ export function SquadBuilder({
                     {member.strengths.map((s) => (
                       <span
                         key={s}
-                        className="bg-muted rounded px-1.5 py-0.5 text-[10px]"
+                        className="rounded bg-muted px-1.5 py-0.5 text-[10px]"
                       >
                         {s}
                       </span>
@@ -153,8 +135,8 @@ export function SquadBuilder({
                 key={`empty-${i}`}
                 className="flex flex-col items-center justify-center gap-2 rounded-lg border border-dashed p-4 opacity-40"
               >
-                <Users className="text-muted-foreground size-8" />
-                <p className="text-muted-foreground text-xs">
+                <Users className="size-8 text-muted-foreground" />
+                <p className="text-xs text-muted-foreground">
                   Recruit more friends
                 </p>
               </div>

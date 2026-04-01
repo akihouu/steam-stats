@@ -35,19 +35,16 @@ export function ActivityGroup({
       >
         <ChevronDown
           className={cn(
-            "text-muted-foreground size-4 transition-transform",
+            "size-4 text-muted-foreground transition-transform",
             !expanded && "-rotate-90"
           )}
         />
         <span
-          className={cn(
-            "text-sm font-medium",
-            accent ?? "text-foreground"
-          )}
+          className={cn("text-sm font-medium", accent ?? "text-foreground")}
         >
           {label}
         </span>
-        <span className="bg-muted text-muted-foreground rounded-full px-2 py-0.5 text-xs">
+        <span className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
           {friends.length}
         </span>
       </button>
@@ -69,9 +66,7 @@ export function ActivityGroup({
                 <m.div key={friend.steamid} variants={fadeIn}>
                   <FriendCard
                     player={friend}
-                    selected={selectedFriendIds.includes(
-                      friend.steamid
-                    )}
+                    selected={selectedFriendIds.includes(friend.steamid)}
                     onToggle={() => toggleFriend(friend.steamid)}
                   />
                 </m.div>

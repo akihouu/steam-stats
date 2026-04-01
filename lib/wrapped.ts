@@ -1,9 +1,4 @@
-import {
-  formatKD,
-  formatNumber,
-  formatPercent,
-  formatPlaytime,
-} from "./cs2"
+import { formatKD, formatNumber, formatPercent, formatPlaytime } from "./cs2"
 import type { CS2PlayerStats } from "./steam-types"
 
 export interface WrappedSlide {

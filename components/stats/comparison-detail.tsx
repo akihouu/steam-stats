@@ -57,14 +57,9 @@ export function ComparisonDetail({
     }
   }
 
-  const winner =
-    winsA > winsB ? "A" : winsB > winsA ? "B" : "tie"
+  const winner = winsA > winsB ? "A" : winsB > winsA ? "B" : "tie"
   const winnerProfile =
-    winner === "A"
-      ? playerA.profile
-      : winner === "B"
-        ? playerB.profile
-        : null
+    winner === "A" ? playerA.profile : winner === "B" ? playerB.profile : null
 
   return (
     <m.div
@@ -93,13 +88,12 @@ export function ComparisonDetail({
                 <span className="font-semibold">
                   {winnerProfile.personaname}
                 </span>
-                <span className="text-muted-foreground text-sm">
-                  wins {Math.max(winsA, winsB)} to{" "}
-                  {Math.min(winsA, winsB)}
+                <span className="text-sm text-muted-foreground">
+                  wins {Math.max(winsA, winsB)} to {Math.min(winsA, winsB)}
                 </span>
               </>
             ) : (
-              <span className="text-muted-foreground font-medium">
+              <span className="font-medium text-muted-foreground">
                 It&apos;s a tie! {winsA}-{winsB}
               </span>
             )}
@@ -107,17 +101,11 @@ export function ComparisonDetail({
 
           {/* Player headers */}
           <div className="flex items-center justify-between">
-            <PlayerBadge
-              player={playerA.profile}
-              isWinner={winner === "A"}
-            />
-            <span className="text-muted-foreground text-xs font-medium uppercase tracking-wider">
+            <PlayerBadge player={playerA.profile} isWinner={winner === "A"} />
+            <span className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
               vs
             </span>
-            <PlayerBadge
-              player={playerB.profile}
-              isWinner={winner === "B"}
-            />
+            <PlayerBadge player={playerB.profile} isWinner={winner === "B"} />
           </div>
 
           {/* All stats */}
@@ -137,22 +125,16 @@ export function ComparisonDetail({
                     <span
                       className={cn(
                         "font-semibold tabular-nums",
-                        aWins
-                          ? "text-emerald-500"
-                          : "text-muted-foreground"
+                        aWins ? "text-emerald-500" : "text-muted-foreground"
                       )}
                     >
                       {stat.format(valA)}
                     </span>
-                    <span className="text-muted-foreground">
-                      {stat.label}
-                    </span>
+                    <span className="text-muted-foreground">{stat.label}</span>
                     <span
                       className={cn(
                         "font-semibold tabular-nums",
-                        bWins
-                          ? "text-emerald-500"
-                          : "text-muted-foreground"
+                        bWins ? "text-emerald-500" : "text-muted-foreground"
                       )}
                     >
                       {stat.format(valB)}

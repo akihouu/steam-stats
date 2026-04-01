@@ -9,10 +9,8 @@ export async function GET() {
     "openid.mode": "checkid_setup",
     "openid.return_to": `${baseUrl}/api/auth/steam/callback`,
     "openid.realm": baseUrl,
-    "openid.identity":
-      "http://specs.openid.net/auth/2.0/identifier_select",
-    "openid.claimed_id":
-      "http://specs.openid.net/auth/2.0/identifier_select",
+    "openid.identity": "http://specs.openid.net/auth/2.0/identifier_select",
+    "openid.claimed_id": "http://specs.openid.net/auth/2.0/identifier_select",
   })
 
   return NextResponse.redirect(

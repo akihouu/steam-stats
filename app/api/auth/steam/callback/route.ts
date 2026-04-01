@@ -4,22 +4,17 @@ import { getPlayerSummaries } from "@/lib/steam"
 import { cookies } from "next/headers"
 import { NextResponse, type NextRequest } from "next/server"
 
-async function verifySteamLogin(
-  params: URLSearchParams
-): Promise<boolean> {
+async function verifySteamLogin(params: URLSearchParams): Promise<boolean> {
   const verifyParams = new URLSearchParams(params)
   verifyParams.set("openid.mode", "check_authentication")
 
-  const res = await fetch(
-    "https://steamcommunity.com/openid/login",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: verifyParams.toString(),
-    }
-  )
+  const res = await fetch("https://steamcommunity.com/openid/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: verifyParams.toString(),
+  })
 
   const text = await res.text()
   return text.includes("is_valid:true")

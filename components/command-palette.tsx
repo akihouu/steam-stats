@@ -57,8 +57,7 @@ export function CommandPalette({ friends = [] }: CommandPaletteProps) {
         id: `friend-${friend.steamid}`,
         label: `Compare with ${friend.name}`,
         section: "Friends",
-        action: () =>
-          router.push(`/stats?friends=${friend.steamid}`),
+        action: () => router.push(`/stats?friends=${friend.steamid}`),
       })
     }
 
@@ -132,14 +131,14 @@ export function CommandPalette({ friends = [] }: CommandPaletteProps) {
               }}
             />
             <m.div
-              className="bg-card relative z-10 w-full max-w-md overflow-hidden rounded-lg border shadow-2xl"
+              className="relative z-10 w-full max-w-md overflow-hidden rounded-lg border bg-card shadow-2xl"
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ duration: 0.15 }}
             >
               <div className="flex items-center gap-2 border-b px-3">
-                <Search className="text-muted-foreground size-4" />
+                <Search className="size-4 text-muted-foreground" />
                 <input
                   ref={inputRef}
                   type="text"
@@ -147,15 +146,15 @@ export function CommandPalette({ friends = [] }: CommandPaletteProps) {
                   onChange={(e) => handleQueryChange(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Search commands..."
-                  className="bg-transparent flex-1 py-3 text-sm outline-none"
+                  className="flex-1 bg-transparent py-3 text-sm outline-none"
                 />
-                <kbd className="bg-muted text-muted-foreground rounded px-1.5 py-0.5 text-[10px]">
+                <kbd className="rounded bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
                   esc
                 </kbd>
               </div>
               <div className="max-h-[300px] overflow-y-auto p-1">
                 {filtered.length === 0 && (
-                  <p className="text-muted-foreground py-6 text-center text-sm">
+                  <p className="py-6 text-center text-sm text-muted-foreground">
                     No results found
                   </p>
                 )}
@@ -176,7 +175,7 @@ export function CommandPalette({ friends = [] }: CommandPaletteProps) {
                   >
                     <span>{item.label}</span>
                     {item.shortcut && (
-                      <kbd className="bg-muted rounded px-1.5 py-0.5 text-[10px]">
+                      <kbd className="rounded bg-muted px-1.5 py-0.5 text-[10px]">
                         {item.shortcut}
                       </kbd>
                     )}
@@ -202,7 +201,7 @@ export function CommandPalette({ friends = [] }: CommandPaletteProps) {
               onClick={() => setShowHelp(false)}
             />
             <m.div
-              className="bg-card relative z-10 w-full max-w-sm rounded-lg border p-6 shadow-2xl"
+              className="relative z-10 w-full max-w-sm rounded-lg border bg-card p-6 shadow-2xl"
               initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.95 }}
@@ -210,7 +209,7 @@ export function CommandPalette({ friends = [] }: CommandPaletteProps) {
               <div className="mb-4 flex items-center justify-between">
                 <h3 className="font-semibold">Keyboard Shortcuts</h3>
                 <button onClick={() => setShowHelp(false)}>
-                  <X className="text-muted-foreground size-4" />
+                  <X className="size-4 text-muted-foreground" />
                 </button>
               </div>
               <div className="flex flex-col gap-2 text-sm">
@@ -222,14 +221,9 @@ export function CommandPalette({ friends = [] }: CommandPaletteProps) {
                   ["d", "Toggle theme"],
                   ["?", "Show this help"],
                 ].map(([key, desc]) => (
-                  <div
-                    key={key}
-                    className="flex items-center justify-between"
-                  >
-                    <span className="text-muted-foreground">
-                      {desc}
-                    </span>
-                    <kbd className="bg-muted rounded px-2 py-0.5 text-xs">
+                  <div key={key} className="flex items-center justify-between">
+                    <span className="text-muted-foreground">{desc}</span>
+                    <kbd className="rounded bg-muted px-2 py-0.5 text-xs">
                       {key}
                     </kbd>
                   </div>

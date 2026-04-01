@@ -1,4 +1,9 @@
-import { parseCS2Stats, formatKD, formatPercent, formatPlaytime } from "@/lib/cs2"
+import {
+  parseCS2Stats,
+  formatKD,
+  formatPercent,
+  formatPlaytime,
+} from "@/lib/cs2"
 import { getCS2Stats, getOwnedGames, getPlayerSummaries } from "@/lib/steam"
 import { CS2_APP_ID } from "@/lib/steam-types"
 import { ImageResponse } from "next/og"
@@ -27,80 +32,90 @@ export async function GET(
   const topWeapon = stats.weapons[0]
 
   return new ImageResponse(
-    (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        height: "100%",
+        background:
+          "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
+        color: "white",
+        padding: "48px",
+        fontFamily: "sans-serif",
+      }}
+    >
+      {/* Header */}
       <div
         style={{
           display: "flex",
-          flexDirection: "column",
-          width: "100%",
-          height: "100%",
-          background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
-          color: "white",
-          padding: "48px",
-          fontFamily: "sans-serif",
+          alignItems: "center",
+          gap: "20px",
+          marginBottom: "36px",
         }}
       >
-        {/* Header */}
-        <div
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={player.avatarfull}
+          alt=""
+          width={80}
+          height={80}
           style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "20px",
-            marginBottom: "36px",
+            borderRadius: "50%",
+            border: "3px solid rgba(255,255,255,0.2)",
           }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={player.avatarfull}
-            alt=""
-            width={80}
-            height={80}
-            style={{ borderRadius: "50%", border: "3px solid rgba(255,255,255,0.2)" }}
-          />
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <span style={{ fontSize: "32px", fontWeight: "bold" }}>
-              {player.personaname}
-            </span>
-            <span style={{ fontSize: "16px", color: "rgba(255,255,255,0.6)" }}>
-              CS2 Stats
-            </span>
-          </div>
-        </div>
-
-        {/* Stats Grid */}
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "16px",
-            flex: 1,
-          }}
-        >
-          <StatBox label="K/D Ratio" value={formatKD(stats.kdRatio)} highlight />
-          <StatBox label="Headshot %" value={formatPercent(stats.headshotPercentage)} highlight />
-          <StatBox label="Total Kills" value={stats.totalKills.toLocaleString()} />
-          <StatBox label="Total Wins" value={stats.totalWins.toLocaleString()} />
-          <StatBox label="MVP Stars" value={stats.totalMvps.toLocaleString()} />
-          <StatBox label="Playtime" value={formatPlaytime(stats.totalTimePlayed)} />
-          {topWeapon && (
-            <StatBox label="Fav. Weapon" value={topWeapon.weapon} />
-          )}
-        </div>
-
-        {/* Branding */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            marginTop: "16px",
-          }}
-        >
-          <span style={{ fontSize: "14px", color: "rgba(255,255,255,0.3)" }}>
-            Steam Stats
+        />
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <span style={{ fontSize: "32px", fontWeight: "bold" }}>
+            {player.personaname}
+          </span>
+          <span style={{ fontSize: "16px", color: "rgba(255,255,255,0.6)" }}>
+            CS2 Stats
           </span>
         </div>
       </div>
-    ),
+
+      {/* Stats Grid */}
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "16px",
+          flex: 1,
+        }}
+      >
+        <StatBox label="K/D Ratio" value={formatKD(stats.kdRatio)} highlight />
+        <StatBox
+          label="Headshot %"
+          value={formatPercent(stats.headshotPercentage)}
+          highlight
+        />
+        <StatBox
+          label="Total Kills"
+          value={stats.totalKills.toLocaleString()}
+        />
+        <StatBox label="Total Wins" value={stats.totalWins.toLocaleString()} />
+        <StatBox label="MVP Stars" value={stats.totalMvps.toLocaleString()} />
+        <StatBox
+          label="Playtime"
+          value={formatPlaytime(stats.totalTimePlayed)}
+        />
+        {topWeapon && <StatBox label="Fav. Weapon" value={topWeapon.weapon} />}
+      </div>
+
+      {/* Branding */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginTop: "16px",
+        }}
+      >
+        <span style={{ fontSize: "14px", color: "rgba(255,255,255,0.3)" }}>
+          Steam Stats
+        </span>
+      </div>
+    </div>,
     {
       width: 1200,
       height: 630,

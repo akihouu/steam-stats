@@ -5,14 +5,7 @@ import { type MilestoneProgress, calculateMilestones } from "@/lib/milestones"
 import type { CS2PlayerStats } from "@/lib/steam-types"
 import { cn } from "@/lib/utils"
 import { staggerContainer, fadeIn } from "@/lib/motion"
-import {
-  Bomb,
-  Check,
-  Crosshair,
-  Star,
-  Target,
-  Trophy,
-} from "lucide-react"
+import { Bomb, Check, Crosshair, Star, Target, Trophy } from "lucide-react"
 import { motion as m } from "motion/react"
 import type { LucideIcon } from "lucide-react"
 
@@ -60,7 +53,7 @@ function MilestoneCard({ milestone }: { milestone: MilestoneProgress }) {
             {milestone.target.toLocaleString()}
           </p>
         </div>
-        <div className="bg-muted mt-1.5 h-1.5 overflow-hidden rounded-full">
+        <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-muted">
           <m.div
             className={cn(
               "h-full rounded-full",
@@ -73,16 +66,14 @@ function MilestoneCard({ milestone }: { milestone: MilestoneProgress }) {
         </div>
         <div className="mt-1 flex justify-between">
           {milestone.completed ? (
-            <p className="text-xs font-medium text-amber-500">
-              Completed!
-            </p>
+            <p className="text-xs font-medium text-amber-500">Completed!</p>
           ) : (
-            <p className="text-muted-foreground text-xs">
+            <p className="text-xs text-muted-foreground">
               {milestone.remaining.toLocaleString()} remaining
             </p>
           )}
           {milestone.projectedDate && !milestone.completed && (
-            <p className="text-muted-foreground text-xs">
+            <p className="text-xs text-muted-foreground">
               ~{milestone.projectedDate}
             </p>
           )}

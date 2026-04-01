@@ -20,10 +20,10 @@ export function FriendCard({ player, selected, onToggle }: FriendCardProps) {
     <button
       onClick={onToggle}
       className={cn(
-        "bg-card flex w-full items-center gap-3 rounded-lg border p-3 text-left transition-colors",
+        "flex w-full items-center gap-3 rounded-lg border bg-card p-3 text-left transition-colors",
         selected
           ? "border-primary bg-primary/5"
-          : "hover:bg-muted/50 border-transparent"
+          : "border-transparent hover:bg-muted/50"
       )}
     >
       <div className="relative shrink-0">
@@ -35,14 +35,14 @@ export function FriendCard({ player, selected, onToggle }: FriendCardProps) {
         </Avatar>
         <div
           className={cn(
-            "absolute -bottom-0.5 -right-0.5 size-3 rounded-full border-2 border-white dark:border-zinc-900",
+            "absolute -right-0.5 -bottom-0.5 size-3 rounded-full border-2 border-white dark:border-zinc-900",
             isOnline ? "bg-emerald-500" : "bg-zinc-400"
           )}
         />
       </div>
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-medium">{player.personaname}</p>
-        <p className="text-muted-foreground flex items-center gap-1 text-xs">
+        <p className="flex items-center gap-1 text-xs text-muted-foreground">
           {isPrivate ? (
             <>
               <Lock className="size-3" />
@@ -58,7 +58,7 @@ export function FriendCard({ player, selected, onToggle }: FriendCardProps) {
         </p>
       </div>
       {selected && (
-        <div className="bg-primary text-primary-foreground flex size-5 shrink-0 items-center justify-center rounded-full">
+        <div className="flex size-5 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
           <Check className="size-3" />
         </div>
       )}

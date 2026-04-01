@@ -38,7 +38,7 @@ export function ShareButton({ steamId }: ShareButtonProps) {
   return (
     <button
       onClick={handleShare}
-      className="bg-muted hover:bg-muted/80 flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-colors"
+      className="flex items-center gap-1.5 rounded-md bg-muted px-3 py-1.5 text-xs font-medium transition-colors hover:bg-muted/80"
     >
       {copied ? (
         <>

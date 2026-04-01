@@ -2,21 +2,11 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import {
-  generateQuizQuestions,
-  type QuizQuestion,
-} from "@/lib/quiz"
+import { generateQuizQuestions, type QuizQuestion } from "@/lib/quiz"
 import type { CS2PlayerStats, SteamPlayer } from "@/lib/steam-types"
 import { cn } from "@/lib/utils"
 import { motion as m, AnimatePresence } from "motion/react"
-import {
-  Check,
-  Clock,
-  RotateCcw,
-  Trophy,
-  X,
-  Zap,
-} from "lucide-react"
+import { Check, Clock, RotateCcw, Trophy, X, Zap } from "lucide-react"
 import { useCallback, useEffect, useRef, useState } from "react"
 
 interface QuizGameProps {
@@ -118,8 +108,8 @@ export function QuizGame({ players }: QuizGameProps) {
   if (questions.length === 0) {
     return (
       <div className="flex flex-col items-center gap-4 py-20">
-        <Trophy className="text-muted-foreground size-10" />
-        <p className="text-muted-foreground text-sm">
+        <Trophy className="size-10 text-muted-foreground" />
+        <p className="text-sm text-muted-foreground">
           Need at least 2 players with CS2 stats to play the quiz.
         </p>
       </div>
@@ -187,7 +177,7 @@ export function QuizGame({ players }: QuizGameProps) {
       </div>
 
       {/* Timer bar */}
-      <div className="bg-muted h-1.5 overflow-hidden rounded-full">
+      <div className="h-1.5 overflow-hidden rounded-full bg-muted">
         <m.div
           className={cn(
             "h-full rounded-full",
@@ -210,9 +200,7 @@ export function QuizGame({ players }: QuizGameProps) {
           <Card>
             <CardContent className="flex flex-col gap-4 p-6">
               <div className="flex items-start justify-between gap-2">
-                <h3 className="text-lg font-semibold">
-                  {question.question}
-                </h3>
+                <h3 className="text-lg font-semibold">{question.question}</h3>
                 <div
                   className={cn(
                     "flex shrink-0 items-center gap-1 rounded-full px-2 py-1 text-xs font-medium",
@@ -228,8 +216,7 @@ export function QuizGame({ players }: QuizGameProps) {
 
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                 {question.options.map((option) => {
-                  const isCorrect =
-                    option.steamid === question.correctId
+                  const isCorrect = option.steamid === question.correctId
                   const isSelected = option.steamid === selectedId
                   const showResult = gameState === "answered"
 
@@ -249,10 +236,7 @@ export function QuizGame({ players }: QuizGameProps) {
                           isSelected &&
                           !isCorrect &&
                           "border-red-500 bg-red-500/10 text-red-500",
-                        showResult &&
-                          !isCorrect &&
-                          !isSelected &&
-                          "opacity-50"
+                        showResult && !isCorrect && !isSelected && "opacity-50"
                       )}
                     >
                       <div className="flex items-center justify-between">
@@ -260,11 +244,9 @@ export function QuizGame({ players }: QuizGameProps) {
                         {showResult && isCorrect && (
                           <Check className="size-4" />
                         )}
-                        {showResult &&
-                          isSelected &&
-                          !isCorrect && (
-                            <X className="size-4" />
-                          )}
+                        {showResult && isSelected && !isCorrect && (
+                          <X className="size-4" />
+                        )}
                       </div>
                     </button>
                   )
@@ -278,7 +260,7 @@ export function QuizGame({ players }: QuizGameProps) {
                   animate={{ opacity: 1, y: 0 }}
                   className="flex items-center justify-between"
                 >
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-sm text-muted-foreground">
                     {question.hint}
                   </p>
                   <Button size="sm" onClick={nextQuestion}>

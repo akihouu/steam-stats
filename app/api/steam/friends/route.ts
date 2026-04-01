@@ -10,7 +10,10 @@ export async function GET() {
 
   const friends = await getFriendList(session.steamid)
   if (!friends) {
-    return NextResponse.json({ error: "Friend list is private" }, { status: 403 })
+    return NextResponse.json(
+      { error: "Friend list is private" },
+      { status: 403 }
+    )
   }
 
   const friendIds = friends.map((f) => f.steamid)

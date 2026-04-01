@@ -61,11 +61,7 @@ export const ACHIEVEMENT_NAMES: Record<string, string> = {
   SAFARI_HUNTER: "Kill every type of bot",
 }
 
-export type AchievementRarity =
-  | "common"
-  | "uncommon"
-  | "rare"
-  | "ultra-rare"
+export type AchievementRarity = "common" | "uncommon" | "rare" | "ultra-rare"
 
 export interface AchievementWithRarity {
   name: string
@@ -121,9 +117,7 @@ export function calculateAchievementRarity(
 
   return userAchievements.map((achievement) => {
     const achievedCount = allPlayers.filter((playerAchs) =>
-      playerAchs.some(
-        (a) => a.name === achievement.name && a.achieved
-      )
+      playerAchs.some((a) => a.name === achievement.name && a.achieved)
     ).length
 
     const friendPercentage =

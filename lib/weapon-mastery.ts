@@ -1,11 +1,6 @@
 import type { WeaponStat } from "./steam-types"
 
-export type MasteryTier =
-  | "none"
-  | "bronze"
-  | "silver"
-  | "gold"
-  | "diamond"
+export type MasteryTier = "none" | "bronze" | "silver" | "gold" | "diamond"
 
 export interface MasteryThreshold {
   tier: MasteryTier
@@ -62,16 +57,8 @@ export function getWeaponTier(kills: number): MasteryTier {
   return "none"
 }
 
-export function getNextTier(
-  currentTier: MasteryTier
-): MasteryThreshold | null {
-  const order: MasteryTier[] = [
-    "none",
-    "bronze",
-    "silver",
-    "gold",
-    "diamond",
-  ]
+export function getNextTier(currentTier: MasteryTier): MasteryThreshold | null {
+  const order: MasteryTier[] = ["none", "bronze", "silver", "gold", "diamond"]
   const idx = order.indexOf(currentTier)
   if (idx >= order.length - 1) return null
   const nextTier = order[idx + 1]
@@ -88,8 +75,7 @@ export function getProgress(kills: number): {
 
   if (!next) return { current: kills, target: kills, percentage: 100 }
 
-  const currentMin =
-    MASTERY_THRESHOLDS.find((t) => t.tier === tier)?.min ?? 0
+  const currentMin = MASTERY_THRESHOLDS.find((t) => t.tier === tier)?.min ?? 0
   const progress = kills - currentMin
   const total = next.min - currentMin
 

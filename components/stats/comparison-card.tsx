@@ -23,10 +23,7 @@ const COMPARE_STATS = [
   { key: "totalMvps", label: "MVPs", format: formatNumber },
 ] as const
 
-export function ComparisonCard({
-  playerA,
-  playerB,
-}: ComparisonCardProps) {
+export function ComparisonCard({ playerA, playerB }: ComparisonCardProps) {
   const [expanded, setExpanded] = useState(false)
 
   // Calculate overall winner
@@ -38,8 +35,7 @@ export function ComparisonCard({
     if (a > b) winsA++
     else if (b > a) winsB++
   }
-  const winner =
-    winsA > winsB ? "A" : winsB > winsA ? "B" : null
+  const winner = winsA > winsB ? "A" : winsB > winsA ? "B" : null
 
   if (expanded) {
     return (
@@ -55,17 +51,11 @@ export function ComparisonCard({
     <Card>
       <CardContent className="flex flex-col gap-4 p-5">
         <div className="flex items-center justify-between">
-          <PlayerBadge
-            player={playerA.profile}
-            isWinner={winner === "A"}
-          />
-          <span className="text-muted-foreground text-xs font-medium uppercase tracking-wider">
+          <PlayerBadge player={playerA.profile} isWinner={winner === "A"} />
+          <span className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
             vs
           </span>
-          <PlayerBadge
-            player={playerB.profile}
-            isWinner={winner === "B"}
-          />
+          <PlayerBadge player={playerB.profile} isWinner={winner === "B"} />
         </div>
 
         <div className="flex flex-col gap-3">
@@ -81,9 +71,7 @@ export function ComparisonCard({
                   <span
                     className={cn(
                       "font-semibold tabular-nums",
-                      valA > valB
-                        ? "text-emerald-500"
-                        : "text-muted-foreground"
+                      valA > valB ? "text-emerald-500" : "text-muted-foreground"
                     )}
                   >
                     {stat.format(valA)}
@@ -92,9 +80,7 @@ export function ComparisonCard({
                   <span
                     className={cn(
                       "font-semibold tabular-nums",
-                      valB > valA
-                        ? "text-emerald-500"
-                        : "text-muted-foreground"
+                      valB > valA ? "text-emerald-500" : "text-muted-foreground"
                     )}
                   >
                     {stat.format(valB)}
@@ -139,13 +125,11 @@ export function ComparisonCard({
                 </span>
               </>
             )}
-            {!winner && (
-              <span className="text-muted-foreground">Tied!</span>
-            )}
+            {!winner && <span className="text-muted-foreground">Tied!</span>}
           </div>
           <button
             onClick={() => setExpanded(true)}
-            className="text-muted-foreground hover:text-foreground flex items-center gap-1 text-xs transition-colors"
+            className="flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
           >
             <Expand className="size-3" />
             Details

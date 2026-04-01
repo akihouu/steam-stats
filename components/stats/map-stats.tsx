@@ -28,9 +28,9 @@ export function MapStats({ maps }: MapStatsProps) {
                 {mp.wins.toLocaleString()} wins
               </span>
             </div>
-            <div className="bg-muted h-2 overflow-hidden rounded-full">
+            <div className="h-2 overflow-hidden rounded-full bg-muted">
               <m.div
-                className="bg-chart-2 h-full rounded-full"
+                className="h-full rounded-full bg-chart-2"
                 initial={{ width: 0 }}
                 animate={{ width: `${pct}%` }}
                 transition={{ duration: 0.6, ease: "easeOut" }}

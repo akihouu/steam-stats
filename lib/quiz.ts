@@ -41,9 +41,7 @@ function makeQuestion(
   }
 }
 
-export function generateQuizQuestions(
-  players: PlayerEntry[]
-): QuizQuestion[] {
+export function generateQuizQuestions(players: PlayerEntry[]): QuizQuestion[] {
   if (players.length < 2) return []
 
   const questions: QuizQuestion[] = []
@@ -63,9 +61,7 @@ export function generateQuizQuestions(
   )
 
   // Best K/D
-  const bestKD = [...pool].sort(
-    (a, b) => b.stats.kdRatio - a.stats.kdRatio
-  )[0]
+  const bestKD = [...pool].sort((a, b) => b.stats.kdRatio - a.stats.kdRatio)[0]
   questions.push(
     makeQuestion(
       "Who has the best K/D ratio?",
@@ -77,8 +73,7 @@ export function generateQuizQuestions(
 
   // Best HS%
   const bestHS = [...pool].sort(
-    (a, b) =>
-      b.stats.headshotPercentage - a.stats.headshotPercentage
+    (a, b) => b.stats.headshotPercentage - a.stats.headshotPercentage
   )[0]
   questions.push(
     makeQuestion(
@@ -137,9 +132,10 @@ export function generateQuizQuestions(
     const shuffled = pickRandom(weaponUsers, weaponUsers.length)
     const uniqueWeaponUser = shuffled.find((player) => {
       const topWeapon = player.stats.weapons[0].weapon
-      return weaponUsers.filter(
-        (p) => p.stats.weapons[0]?.weapon === topWeapon
-      ).length === 1
+      return (
+        weaponUsers.filter((p) => p.stats.weapons[0]?.weapon === topWeapon)
+          .length === 1
+      )
     })
     if (uniqueWeaponUser) {
       const favWeapon = uniqueWeaponUser.stats.weapons[0]

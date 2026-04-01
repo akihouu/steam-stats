@@ -32,9 +32,7 @@ export function FriendList({ friends, groups }: FriendListProps) {
     let filtered = friends
     if (search) {
       const q = search.toLowerCase()
-      filtered = friends.filter((f) =>
-        f.personaname.toLowerCase().includes(q)
-      )
+      filtered = friends.filter((f) => f.personaname.toLowerCase().includes(q))
     }
     return [...filtered].sort((a, b) => {
       if (a.personastate !== b.personastate) {
@@ -58,7 +56,7 @@ export function FriendList({ friends, groups }: FriendListProps) {
       <div className="flex items-center justify-between gap-3">
         <h3 className="text-lg font-semibold">
           Friends{" "}
-          <span className="text-muted-foreground font-normal">
+          <span className="font-normal text-muted-foreground">
             ({friends.length})
           </span>
           <span className="ml-1 text-xs text-emerald-500">
@@ -67,7 +65,7 @@ export function FriendList({ friends, groups }: FriendListProps) {
         </h3>
         {selectedFriendIds.length > 0 && (
           <div className="flex items-center gap-2">
-            <span className="text-muted-foreground text-sm">
+            <span className="text-sm text-muted-foreground">
               {selectedFriendIds.length} selected
             </span>
             <Button variant="ghost" size="xs" onClick={clearSelection}>
@@ -75,9 +73,7 @@ export function FriendList({ friends, groups }: FriendListProps) {
               Clear
             </Button>
             <Button size="xs" asChild>
-              <Link
-                href={`/stats?friends=${selectedFriendIds.join(",")}`}
-              >
+              <Link href={`/stats?friends=${selectedFriendIds.join(",")}`}>
                 <BarChart3 className="size-3" />
                 Compare
               </Link>
@@ -87,7 +83,7 @@ export function FriendList({ friends, groups }: FriendListProps) {
       </div>
 
       <div className="relative">
-        <Search className="text-muted-foreground absolute left-3 top-1/2 size-4 -translate-y-1/2" />
+        <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           placeholder="Search friends..."
           value={search}
@@ -108,16 +104,13 @@ export function FriendList({ friends, groups }: FriendListProps) {
             friends={groups.inOtherGame}
             accent="text-blue-500"
           />
-          <ActivityGroup
-            label="Online"
-            friends={groups.online}
-          />
+          <ActivityGroup label="Online" friends={groups.online} />
           <ActivityGroup
             label="Offline"
             friends={groups.offline}
             defaultExpanded={false}
           />
-          <p className="text-muted-foreground text-center text-xs">
+          <p className="text-center text-xs text-muted-foreground">
             Data refreshes every ~2 minutes
           </p>
         </div>
@@ -141,7 +134,7 @@ export function FriendList({ friends, groups }: FriendListProps) {
       )}
 
       {sorted.length === 0 && search && (
-        <p className="text-muted-foreground py-8 text-center text-sm">
+        <p className="py-8 text-center text-sm text-muted-foreground">
           No friends match your search.
         </p>
       )}
