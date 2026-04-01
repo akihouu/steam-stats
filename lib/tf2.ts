@@ -72,26 +72,26 @@ export function parseTF2Stats(
 
   // Aggregate combat stats
   const totalCaptures =
-    statValue(s, "Scout.accum.iCaptures") +
-    statValue(s, "Soldier.accum.iCaptures") +
-    statValue(s, "Pyro.accum.iCaptures") +
-    statValue(s, "Demoman.accum.iCaptures") +
-    statValue(s, "Heavy.accum.iCaptures") +
-    statValue(s, "Engineer.accum.iCaptures") +
-    statValue(s, "Medic.accum.iCaptures") +
-    statValue(s, "Sniper.accum.iCaptures") +
-    statValue(s, "Spy.accum.iCaptures")
+    statValue(s, "Scout.accum.iPointCaptures") +
+    statValue(s, "Soldier.accum.iPointCaptures") +
+    statValue(s, "Pyro.accum.iPointCaptures") +
+    statValue(s, "Demoman.accum.iPointCaptures") +
+    statValue(s, "Heavy.accum.iPointCaptures") +
+    statValue(s, "Engineer.accum.iPointCaptures") +
+    statValue(s, "Medic.accum.iPointCaptures") +
+    statValue(s, "Sniper.accum.iPointCaptures") +
+    statValue(s, "Spy.accum.iPointCaptures")
 
   const totalDefenses =
-    statValue(s, "Scout.accum.iDefenses") +
-    statValue(s, "Soldier.accum.iDefenses") +
-    statValue(s, "Pyro.accum.iDefenses") +
-    statValue(s, "Demoman.accum.iDefenses") +
-    statValue(s, "Heavy.accum.iDefenses") +
-    statValue(s, "Engineer.accum.iDefenses") +
-    statValue(s, "Medic.accum.iDefenses") +
-    statValue(s, "Sniper.accum.iDefenses") +
-    statValue(s, "Spy.accum.iDefenses")
+    statValue(s, "Scout.accum.iPointDefenses") +
+    statValue(s, "Soldier.accum.iPointDefenses") +
+    statValue(s, "Pyro.accum.iPointDefenses") +
+    statValue(s, "Demoman.accum.iPointDefenses") +
+    statValue(s, "Heavy.accum.iPointDefenses") +
+    statValue(s, "Engineer.accum.iPointDefenses") +
+    statValue(s, "Medic.accum.iPointDefenses") +
+    statValue(s, "Sniper.accum.iPointDefenses") +
+    statValue(s, "Spy.accum.iPointDefenses")
 
   const totalDominations =
     statValue(s, "Scout.accum.iDominations") +
@@ -125,8 +125,8 @@ export function parseTF2Stats(
     statValue(s, "Demoman.accum.iBuildingsDestroyed") +
     statValue(s, "Soldier.accum.iBuildingsDestroyed")
   const totalSentryKills = statValue(s, "Engineer.accum.iSentryKills")
-  const totalTeleports = statValue(s, "Engineer.accum.iTeleports")
-  const totalInvulns = statValue(s, "Medic.accum.iInvulnerable")
+  const totalTeleports = statValue(s, "Engineer.accum.iNumTeleports")
+  const totalInvulns = statValue(s, "Medic.accum.iNumInvulnerable")
 
   return {
     steamid,
