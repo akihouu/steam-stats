@@ -11,7 +11,13 @@ import {
   generateFunFacts,
 } from "@/lib/cs2"
 import { staggerContainer, fadeIn } from "@/lib/motion"
-import type { CS2PlayerStats, SteamPlayer } from "@/lib/steam-types"
+import type {
+  CS2PlayerStats,
+  Dota2PlayerStats,
+  GameId,
+  SteamPlayer,
+  TF2PlayerStats,
+} from "@/lib/steam-types"
 import {
   Bomb,
   Clock,
@@ -29,29 +35,95 @@ import { useState } from "react"
 import { AccuracyStats } from "./accuracy-stats"
 import { Achievements } from "./achievements"
 import { ComparisonCard } from "./comparison-card"
+import { Dota2StatsView } from "./dota2-stats-view"
 import { FunFacts } from "./fun-facts"
+import { GameTabs } from "./game-tabs"
 import { Leaderboard } from "./leaderboard"
 import { MapStats } from "./map-stats"
 import { Milestones } from "./milestones"
 import { ShareButton } from "./share-button"
 import { SquadBuilder } from "./squad-builder"
 import { StatCard } from "./stat-card"
+import { TF2StatsView } from "./tf2-stats-view"
 import { WeaponChart } from "./weapon-chart"
 import { WeaponMastery } from "./weapon-mastery"
 import { WeaponRadar } from "./weapon-radar"
 import { WrappedOverlay } from "./wrapped-overlay"
 
+type AnyStats = CS2PlayerStats | Dota2PlayerStats | TF2PlayerStats
+
 interface StatsViewProps {
+  game: GameId
+  userProfile: SteamPlayer
+  userStats: AnyStats
+  friendData: { profile: SteamPlayer; stats: AnyStats }[]
+}
+
+export function StatsView({
+  game,
+  userProfile,
+  userStats,
+  friendData,
+}: StatsViewProps) {
+  return (
+    <div className="flex flex-col gap-6">
+      <GameTabs activeGame={game} />
+
+      {game === "cs2" && (
+        <CS2StatsView
+          userProfile={userProfile}
+          userStats={userStats as CS2PlayerStats}
+          friendData={
+            friendData as {
+              profile: SteamPlayer
+              stats: CS2PlayerStats
+            }[]
+          }
+        />
+      )}
+
+      {game === "dota2" && (
+        <Dota2StatsView
+          userProfile={userProfile}
+          userStats={userStats as Dota2PlayerStats}
+          friendData={
+            friendData as {
+              profile: SteamPlayer
+              stats: Dota2PlayerStats
+            }[]
+          }
+        />
+      )}
+
+      {game === "tf2" && (
+        <TF2StatsView
+          userProfile={userProfile}
+          userStats={userStats as TF2PlayerStats}
+          friendData={
+            friendData as {
+              profile: SteamPlayer
+              stats: TF2PlayerStats
+            }[]
+          }
+        />
+      )}
+    </div>
+  )
+}
+
+// ---------- CS2 Stats View (extracted from original) ----------
+
+interface CS2StatsViewProps {
   userProfile: SteamPlayer
   userStats: CS2PlayerStats
   friendData: { profile: SteamPlayer; stats: CS2PlayerStats }[]
 }
 
-export function StatsView({
+function CS2StatsView({
   userProfile,
   userStats,
   friendData,
-}: StatsViewProps) {
+}: CS2StatsViewProps) {
   const [showWrapped, setShowWrapped] = useState(false)
 
   const funFacts = generateFunFacts(
@@ -60,10 +132,7 @@ export function StatsView({
     userProfile.personaname
   )
 
-  const allPlayers = [
-    { profile: userProfile, stats: userStats },
-    ...friendData,
-  ]
+  const allPlayers = [{ profile: userProfile, stats: userStats }, ...friendData]
 
   const achievementsWithRarity = calculateAchievementRarity(
     userStats.achievements,
@@ -93,7 +162,7 @@ export function StatsView({
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowWrapped(true)}
-              className="bg-primary/10 text-primary hover:bg-primary/20 flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-colors"
+              className="flex items-center gap-1.5 rounded-md bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary transition-colors hover:bg-primary/20"
             >
               <Sparkles className="size-3.5" />
               <span className="hidden sm:inline">Your Wrapped</span>
@@ -138,11 +207,7 @@ export function StatsView({
             value={userStats.totalWins}
             icon={Medal}
           />
-          <StatCard
-            label="MVP Stars"
-            value={userStats.totalMvps}
-            icon={Star}
-          />
+          <StatCard label="MVP Stars" value={userStats.totalMvps} icon={Star} />
           <StatCard
             label="Playtime"
             value={userStats.totalTimePlayed}
@@ -221,9 +286,7 @@ export function StatsView({
       {/* Weapon Radar Chart */}
       {friendData.length > 0 && (
         <m.section variants={fadeIn}>
-          <h2 className="mb-4 text-xl font-semibold">
-            Weapon Profile
-          </h2>
+          <h2 className="mb-4 text-xl font-semibold">Weapon Profile</h2>
           <WeaponRadar
             userWeapons={userStats.weapons}
             userName={userProfile.personaname}
@@ -259,9 +322,7 @@ export function StatsView({
         <>
           <Separator />
           <m.section variants={fadeIn}>
-            <h2 className="mb-4 text-xl font-semibold">
-              Friend Leaderboard
-            </h2>
+            <h2 className="mb-4 text-xl font-semibold">Friend Leaderboard</h2>
             <Card>
               <CardContent className="p-5">
                 <Leaderboard
@@ -309,8 +370,8 @@ export function StatsView({
           variants={fadeIn}
           className="flex flex-col items-center gap-2 rounded-lg border border-dashed py-12"
         >
-          <Trophy className="text-muted-foreground size-8" />
-          <p className="text-muted-foreground text-sm">
+          <Trophy className="size-8 text-muted-foreground" />
+          <p className="text-sm text-muted-foreground">
             Select friends from the dashboard to compare stats
           </p>
         </m.div>

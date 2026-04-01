@@ -123,3 +123,83 @@ export const PERSONA_STATES: Record<number, PersonaState> = {
 }
 
 export const CS2_APP_ID = 730
+export const DOTA2_APP_ID = 570
+export const TF2_APP_ID = 440
+
+export type GameId = "cs2" | "dota2" | "tf2"
+
+// ---------- Dota 2 Types ----------
+
+export interface Dota2PlayerStats {
+  steamid: string
+  totalKills: number
+  totalDeaths: number
+  totalAssists: number
+  kdaRatio: number
+  totalWins: number
+  totalLosses: number
+  winRate: number
+  totalLastHits: number
+  totalDenies: number
+  totalGoldPerMin: number
+  totalXpPerMin: number
+  totalHeroDamage: number
+  totalHeroHealing: number
+  totalTowerDamage: number
+  totalTimePlayed: number
+  heroes: Dota2HeroStat[]
+  achievements: PlayerAchievement[]
+}
+
+export interface Dota2HeroStat {
+  heroId: number
+  heroName: string
+  games: number
+  wins: number
+  winRate: number
+}
+
+// ---------- TF2 Types ----------
+
+export interface TF2PlayerStats {
+  steamid: string
+  totalKills: number
+  totalDeaths: number
+  kdRatio: number
+  totalPointsScored: number
+  totalDamage: number
+  totalPlaytime: number
+  totalCaptures: number
+  totalDefenses: number
+  totalDominations: number
+  totalRevenges: number
+  totalHeadshots: number
+  totalBackstabs: number
+  totalHealingDone: number
+  totalBuildingsBuilt: number
+  totalBuildingsDestroyed: number
+  totalSentryKills: number
+  totalTeleports: number
+  totalInvulns: number
+  classes: TF2ClassStat[]
+  achievements: PlayerAchievement[]
+}
+
+export interface TF2ClassStat {
+  className: string
+  playtime: number
+  kills: number
+  assists: number
+  deaths: number
+  damage: number
+  points: number
+}
+
+// ---------- Generic Game Stats Union ----------
+
+export type GamePlayerStats =
+  | { game: "cs2"; stats: CS2PlayerStats }
+  | { game: "dota2"; stats: Dota2PlayerStats }
+  | { game: "tf2"; stats: TF2PlayerStats }
+
+export type AnyPlayerStats = CS2PlayerStats | Dota2PlayerStats | TF2PlayerStats
