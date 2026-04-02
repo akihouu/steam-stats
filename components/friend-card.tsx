@@ -13,7 +13,6 @@ interface FriendCardProps {
 
 export function FriendCard({ player, selected, onToggle }: FriendCardProps) {
   const state = PERSONA_STATES[player.personastate] ?? "offline"
-  const isOnline = state !== "offline"
   const isPrivate = player.communityvisibilitystate !== 3
 
   return (
@@ -36,7 +35,13 @@ export function FriendCard({ player, selected, onToggle }: FriendCardProps) {
         <div
           className={cn(
             "absolute -right-0.5 -bottom-0.5 size-3 rounded-full border-2 border-white dark:border-zinc-900",
-            isOnline ? "bg-emerald-500" : "bg-zinc-400"
+            state === "online" || state === "looking-to-play" || state === "looking-to-trade"
+              ? "bg-emerald-500"
+              : state === "away" || state === "snooze"
+                ? "bg-yellow-500"
+                : state === "busy"
+                  ? "bg-red-500"
+                  : "bg-zinc-400"
           )}
         />
       </div>

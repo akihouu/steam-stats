@@ -16,6 +16,14 @@ interface ProfileCardProps {
 export function ProfileCard({ player, cs2Playtime }: ProfileCardProps) {
   const state = PERSONA_STATES[player.personastate] ?? "offline"
   const isOnline = state !== "offline"
+  const dotColor =
+    state === "online" || state === "looking-to-play" || state === "looking-to-trade"
+      ? "bg-emerald-500"
+      : state === "away" || state === "snooze"
+        ? "bg-yellow-500"
+        : state === "busy"
+          ? "bg-red-500"
+          : "bg-zinc-400"
 
   return (
     <m.div variants={fadeIn} initial="initial" animate="animate">
@@ -31,7 +39,7 @@ export function ProfileCard({ player, cs2Playtime }: ProfileCardProps) {
             <div
               className={cn(
                 "absolute right-0 bottom-0 size-4 rounded-full border-2 border-white dark:border-zinc-900",
-                isOnline ? "bg-emerald-500" : "bg-zinc-400"
+                dotColor
               )}
             />
           </div>
