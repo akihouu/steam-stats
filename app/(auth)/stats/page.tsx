@@ -1,3 +1,4 @@
+import { GameTabs } from "@/components/stats/game-tabs"
 import { StatsView } from "@/components/stats/stats-view"
 import { getDota2Stats } from "@/lib/dota2"
 import { isValidGameId } from "@/lib/games"
@@ -124,22 +125,27 @@ export default async function StatsPage({ searchParams }: StatsPageProps) {
 
   if (!userStats) {
     return (
-      <div className="flex flex-col items-center gap-4 py-20">
-        <AlertCircle className="size-10 text-muted-foreground" />
-        <h2 className="text-lg font-semibold">
-          No {GAME_LABELS[game]} Stats Found
-        </h2>
-        <p className="max-w-sm text-center text-sm text-muted-foreground">
-          Your {GAME_LABELS[game]} stats are not available. The Steam API
-          requires your game details to be public — even for your own account.
-        </p>
-        <div className="max-w-sm rounded-lg bg-muted p-4 text-sm">
-          <p className="mb-2 font-medium">How to fix:</p>
-          <ol className="list-inside list-decimal space-y-1 text-xs text-muted-foreground">
-            <li>Open Steam → Profile → Edit Profile → Privacy Settings</li>
-            <li>Set &quot;Game details&quot; to Public</li>
-            <li>Come back and refresh this page</li>
-          </ol>
+      <div className="flex flex-col gap-6">
+        <GameTabs activeGame={game} />
+        <div className="flex flex-col items-center gap-4 py-20">
+          <AlertCircle className="size-10 text-muted-foreground" />
+          <h2 className="text-lg font-semibold">
+            No {GAME_LABELS[game]} Stats Found
+          </h2>
+          <p className="max-w-sm text-center text-sm text-muted-foreground">
+            Your {GAME_LABELS[game]} stats are not available. Make sure you
+            own the game and your game details are set to public.
+          </p>
+          <div className="max-w-sm rounded-lg bg-muted p-4 text-sm">
+            <p className="mb-2 font-medium">How to fix:</p>
+            <ol className="list-inside list-decimal space-y-1 text-xs text-muted-foreground">
+              <li>
+                Open Steam → Profile → Edit Profile → Privacy Settings
+              </li>
+              <li>Set &quot;Game details&quot; to Public</li>
+              <li>Come back and refresh this page</li>
+            </ol>
+          </div>
         </div>
       </div>
     )

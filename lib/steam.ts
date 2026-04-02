@@ -81,7 +81,7 @@ export async function getGameStats(
     600
   )
 
-  if (!data?.playerstats) return null
+  if (!data?.playerstats?.stats) return null
 
   return {
     stats: data.playerstats.stats,
