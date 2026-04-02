@@ -158,7 +158,7 @@ function CS2StatsView({
       {/* Overview Stats */}
       <m.section variants={fadeIn}>
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-xl font-semibold">Your CS2 Stats</h2>
+          <h2 className="text-xl font-semibold">Your Stats</h2>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowWrapped(true)}

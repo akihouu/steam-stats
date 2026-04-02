@@ -14,8 +14,8 @@ export default function StatsError({
       <AlertCircle className="size-10 text-destructive" />
       <h2 className="text-lg font-semibold">Failed to load stats</h2>
       <p className="max-w-sm text-center text-sm text-muted-foreground">
-        Could not fetch CS2 stats. Make sure your profile and game details are
-        set to public.
+        Could not fetch stats. Make sure your profile and game details are set
+        to public.
       </p>
       <Button onClick={reset}>Try again</Button>
     </div>

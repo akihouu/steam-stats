@@ -38,7 +38,7 @@ export function CommandPalette({ friends = [] }: CommandPaletteProps) {
       },
       {
         id: "nav-stats",
-        label: "Go to CS2 Stats",
+        label: "Go to Stats",
         section: "Navigation",
         action: () => router.push("/stats"),
         shortcut: "g s",

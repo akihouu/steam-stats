@@ -9,7 +9,7 @@ const features = [
   {
     icon: Users,
     title: "Friend Insights",
-    description: "See how your friends stack up across CS2",
+    description: "See how your friends stack up across games",
   },
   {
     icon: Trophy,
@@ -46,7 +46,7 @@ export default function LandingPage() {
           </h1>
           <p className="max-w-md text-lg text-muted-foreground">
             Log in with Steam and discover fun stats about you and your friends
-            in Counter-Strike 2.
+            across CS2, Dota 2, and TF2.
           </p>
         </m.div>
 

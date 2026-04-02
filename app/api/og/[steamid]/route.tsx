@@ -70,7 +70,7 @@ export async function GET(
             {player.personaname}
           </span>
           <span style={{ fontSize: "16px", color: "rgba(255,255,255,0.6)" }}>
-            CS2 Stats
+            Steam Stats
           </span>
         </div>
       </div>
