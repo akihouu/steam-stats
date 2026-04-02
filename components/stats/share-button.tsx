@@ -16,8 +16,8 @@ export function ShareButton({ steamId }: ShareButtonProps) {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "My CS2 Stats",
-          text: "Check out my CS2 stats!",
+          title: "My Steam Stats",
+          text: "Check out my Steam stats!",
           url,
         })
         return

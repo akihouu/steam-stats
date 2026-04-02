@@ -27,7 +27,7 @@ interface NavBarProps {
 
 const navLinks = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/stats", label: "CS2 Stats", icon: BarChart3 },
+  { href: "/stats", label: "Stats", icon: BarChart3 },
   { href: "/quiz", label: "Quiz", icon: HelpCircle },
 ]
 
@@ -43,7 +43,7 @@ export function NavBar({ user }: NavBarProps) {
           className="flex items-center gap-2 font-semibold"
         >
           <Crosshair className="size-5 text-primary" />
-          <span className="hidden sm:inline">CS2 Stats</span>
+          <span className="hidden sm:inline">Steam Stats</span>
         </Link>
 
         <Separator orientation="vertical" className="!h-6" />
