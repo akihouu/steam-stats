@@ -1,5 +1,3 @@
-import "server-only"
-
 import type { Dota2HeroStat, Dota2PlayerStats } from "./steam-types"
 
 const OPENDOTA_API = "https://api.opendota.com/api"
